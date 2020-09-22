@@ -1,0 +1,19 @@
+{
+  "name": "mern_memosticks_app",
+  "version": "1.0.0",
+  "description": "MERN CRUD APP",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MERN",
+    "CRUD"
+  ],
+  "author": "tsv",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.6"
+  }
+}
