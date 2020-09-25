@@ -7,6 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//============= ROUTES ===================
+const memosRouter = require("./routes/MemoRoutes");
+// //if root url starts with /memos it's going to load everithing in memosRouter
+app.use("/memos", memosRouter);
+
 //========== EVIROMENT VARIABLES ========
 require("dotenv").config();
 // console.log(process.env.DATABASEURL);
