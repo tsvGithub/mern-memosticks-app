@@ -10,7 +10,8 @@ app.use(express.json());
 //============= ROUTES ===================
 const memosRouter = require("./routes/MemoRoutes");
 // //if root url starts with /memos it's going to load everithing in memosRouter
-app.use("/memos", memosRouter);
+// app.use("/memos", memosRouter);
+app.use("/", memosRouter);
 
 //========== EVIROMENT VARIABLES ========
 require("dotenv").config();
