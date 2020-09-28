@@ -3,15 +3,14 @@ const memoRouter = express.Router();
 //const memoRouter = require('express').Router();
 const Memo = require("../models/Memo.model");
 
-//CRUD
-//localhost:5000/memos and then at the end:
-//READ: => '/'
-//Async
+// //CRUD
+// //localhost:5000 and then at the end:
+// //READ: => '/'
+// //Async
 memoRouter.get("/", async (req, res) => {
   try {
     const memos = await Memo.find();
     res.status(200).json({ memos });
-    // console.log({ memos });
     // res.status(200).send("Hello");
   } catch {
     res.status(500).json({
@@ -22,9 +21,9 @@ memoRouter.get("/", async (req, res) => {
     });
   }
 });
-//---------------------------
-//Promise
-// memoRouter.route("/").get((req, res) => {
+// //---------------------------
+// //Promise
+// // memoRouter.route("/").get((req, res) => {
 // memoRouter.get("/", (req, res) => {
 //   Memo.find()
 //     .then((memos) => res.status(200).json({ memos }))
@@ -37,6 +36,22 @@ memoRouter.get("/", async (req, res) => {
 //         },
 //       })
 //     );
+// });
+// //--------------------------
+// //If-else
+// memoRouter.get("/", (req, res) => {
+//   Memo.find({}, (err, memos) => {
+//     if (err) {
+//       res.status(500).json({
+//         message: {
+//           msgBody: "Unable to get memostiks!",
+//           msgError: true,
+//         },
+//       });
+//     } else {
+//       res.status(200).json({ memos });
+//     }
+//   });
 // });
 //=============================
 //=============================
@@ -76,8 +91,8 @@ memoRouter.get("/", async (req, res) => {
 //     console.log(req.body.date);
 //   });
 // });
-//-----------------------
-//Promise
+// //-----------------------
+// //Promise
 // memoRouter.post("/", (req, res) => {
 //   // console.log(req.body.memo);
 //   // console.log(req.body.importance);
@@ -100,8 +115,8 @@ memoRouter.get("/", async (req, res) => {
 //       res.status(500).json({ msg: "Error occured" });
 //     });
 // });
-// //-------------------------
-//Promise
+// // //-------------------------
+// //Promise
 // // memoRouter.route('/').post((req, res) => {
 // memoRouter.post("/", (req, res) => {
 //   const memo = req.body.memo;
@@ -168,5 +183,49 @@ memoRouter.post("/", async (req, res) => {
     });
   }
 });
+//================================
+//================================
+//SELECT One
+//Promise
+// memoRouter.get("/:id", (req, res) => {
+//   Memo.findById(req.params.id)
+//     .then((memo) => res.status(200).json(memo))
+//     .catch((err) => res.status(400).json(`Error: ${err}`));
+// });
+//----------------------
+//Async
+memoRouter.get("/:id", async (req, res) => {
+  try {
+    const memo = await Memo.findById(req.params.id);
+    // console.log(memo);
+    res.status(200).json(memo);
+  } catch {
+    res.status(500).json({
+      message: {
+        msgBody: "Unable to get selected memo",
+        msgError: true,
+      },
+    });
+  }
+});
+//--------------------
+//if-else
+// memoRouter.get("/:id", (req, res) => {
+//   Memo.findById(req.params.id, (err, memo) => {
+//     if (err)
+//       res.status(500).json({
+//         message: {
+//           msgBody: "Unable to get selected memo",
+//           msgError: true,
+//         },
+//       });
+//     else {
+//       res.status(200).json({ memo });
+//       console.log(memo);
+//     }
+//   });
+// });
+//===================================
+//=====================================
 
 module.exports = memoRouter;
