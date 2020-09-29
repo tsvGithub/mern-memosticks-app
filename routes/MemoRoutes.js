@@ -227,5 +227,68 @@ memoRouter.get("/:id", async (req, res) => {
 // });
 //===================================
 //=====================================
-
+//DELETE
+//Promise
+// memoRouter.route("/:id").delete((req, res) => {
+// memoRouter.delete("/:id", (req, res) => {
+//   Memo.findByIdAndDelete(req.params.id)
+//     // .then(() => res.json("Memo deleted."))
+//     .then(() =>
+//       res.json({
+//         message: {
+//           msgBody: "Successfully Deleted Memo",
+//           msgError: false,
+//         },
+//       })
+//     )
+//     // .catch((err) => res.status(400).json(`Error: ${err}`));
+//     .catch((err) =>
+//       res.status(500).json({
+//         message: {
+//           msgBody: "Unable to Delete Memo",
+//           msgError: true,
+//         },
+//       })
+//     );
+// });
+//-------------------------------
+//if-else
+// memoRouter.delete("/:id", (req, res) => {
+//   Memo.findByIdAndDelete(req.params.id, (err) => {
+//     if (err)
+//       res.status(500).json({
+//         message: {
+//           msgBody: "Unable to Delete Memo",
+//           msgError: true,
+//         },
+//       });
+//     else
+//       res.status(200).json({
+//         message: {
+//           msgBody: "Successfully Deleted Memo",
+//           msgError: false,
+//         },
+//       });
+//   });
+// });
+// //------------------------
+// //Async
+memoRouter.delete("/:id", async (req, res) => {
+  try {
+    await Memo.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      message: {
+        msgBody: "Successfully Deleted Memo",
+        msgError: false,
+      },
+    });
+  } catch {
+    res.status(500).json({
+      message: {
+        msgBody: "Unable to Delete Memo",
+        msgError: true,
+      },
+    });
+  }
+});
 module.exports = memoRouter;
