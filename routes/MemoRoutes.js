@@ -174,7 +174,7 @@ memoRouter.post("/", async (req, res) => {
       },
     });
   } catch {
-    res.status(400).json({
+    res.status(500).json({
       //create Message Object for React Message Component
       message: {
         msgBody: "Unable to add new memo",
@@ -229,19 +229,19 @@ memoRouter.get("/:id", async (req, res) => {
 //=====================================
 //DELETE
 //Promise
-// memoRouter.route("/:id").delete((req, res) => {
+// // memoRouter.route("/:id").delete((req, res) => {
 // memoRouter.delete("/:id", (req, res) => {
 //   Memo.findByIdAndDelete(req.params.id)
-//     // .then(() => res.json("Memo deleted."))
+//     // .then(() => res.status(200).json("Memo deleted."))
 //     .then(() =>
-//       res.json({
+//       res.status(200).json({
 //         message: {
 //           msgBody: "Successfully Deleted Memo",
 //           msgError: false,
 //         },
 //       })
 //     )
-//     // .catch((err) => res.status(400).json(`Error: ${err}`));
+//     // .catch((err) => res.status(500).json(`Error: ${err}`));
 //     .catch((err) =>
 //       res.status(500).json({
 //         message: {
@@ -251,8 +251,8 @@ memoRouter.get("/:id", async (req, res) => {
 //       })
 //     );
 // });
-//-------------------------------
-//if-else
+// //-------------------------------
+// // if-else
 // memoRouter.delete("/:id", (req, res) => {
 //   Memo.findByIdAndDelete(req.params.id, (err) => {
 //     if (err)
@@ -291,4 +291,82 @@ memoRouter.delete("/:id", async (req, res) => {
     });
   }
 });
+
+//===================================
+//=====================================
+//Update
+//recieve the data from the client side
+//if-else
+// memoRouter.put("/:id", (req, res) => {
+// //Memo === Memo Model
+// //{ _id: req.params.id } => which item to update
+// //req.body => document to update from the user
+// //{ runValidators: true } => mongose by default runs validators for all requests, except UPDATE, so need to be set to TRUE
+//   Memo.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true }, (err, response) => {
+//     if (err)
+//       //500 - something went wrong
+//       res.status(500).json({
+//         //create Message Object
+//         //for react Message Component
+//         message: {
+//           msgBody: "Unable to Update Memo",
+//           msgError: true,
+//         },
+//       });
+//     else
+//       res.status(200).json({
+//         message: {
+//           msgBody: "Successfully Updated Memo",
+//           //msgError false since everything went according to plan
+//           msgError: false,
+//         },
+//       });
+//   });
+// });
+// //------------------------
+// //Promise
+// memoRouter.put("/:id", (req, res) => {
+// //   //Memo === Memo Model
+// //   //{ _id: req.params.id } => which item to update
+// //   //req.body => document to update from the user
+// //   //{ runValidators: true } => mongose by default runs validators for all requests, except UPDATE, so need to be set to TRUE
+//   Memo.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true })
+//     .then(() =>
+//       res.status(200).json({
+//         message: {
+//           msgBody: "successfully Updated Memo!",
+//           msgError: false,
+//         },
+//       })
+//     )
+//     .catch((err) =>
+//       res.status(500).json({
+//         message: {
+//           msgBody: "Unable to Update Memo",
+//           msgError: true,
+//         },
+//       })
+//     );
+// });
+//---------------------
+//Async
+memoRouter.put("/:id", async (req, res) => {
+  try {
+    await Memo.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true });
+    res.status(200).json({
+      message: {
+        msgBody: "Successfully Updated Memo",
+        msgError: false,
+      },
+    });
+  } catch {
+    res.status(500).json({
+      message: {
+        msgBody: "Unable to Update Memo",
+        msgError: true,
+      },
+    });
+  }
+});
+
 module.exports = memoRouter;

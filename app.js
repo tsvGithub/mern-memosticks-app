@@ -34,7 +34,9 @@ require("dotenv").config();
 mongoose
   .connect(process.env.Atlas_URI, {
     useNewUrlParser: true,
+    useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => {
     console.log("DB Atlas is connected");
