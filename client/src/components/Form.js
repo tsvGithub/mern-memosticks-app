@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Form extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Add a new Memostick:</h1>
-      </div>
-    );
-  }
-}
+const Form = () => {
+  return (
+    <div>
+      <h1>Form Component</h1>
+    </div>
+  );
+};
+
 export default Form;

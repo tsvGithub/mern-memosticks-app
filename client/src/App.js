@@ -1,29 +1,39 @@
 import React from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
 
+// import List from "./components/List";
+// import Form from "./components/Form";
+import Menu from "./components/Menu";
+import Dashboard from "./components/Dashboard";
 import List from "./components/List";
-import Form from "./components/Form";
+
+import { AppProvider } from "./context";
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <h1>My Memosticks</h1>
-      <button>
-        <Link to="/new">Add Memostick</Link>
-      </button>
-      <button>
-        <Link to="/">All Memosticks</Link>
-      </button>
-
-      <Switch>
-        <Route exact path="/">
+    //wrap whole app into AppProvider
+    <AppProvider>
+      <Router>
+        <Switch>
+          {/* <Route exact path="/all">
           <List />
         </Route>
-        <Route path="/new">
+        <Route exact path="/new">
           <Form />
-        </Route>
-      </Switch>
-    </div>
+        </Route> */}
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route exact path="/">
+            <Menu />
+          </Route>
+          <Route exact path="/:id">
+            <List />
+          </Route>
+        </Switch>
+      </Router>
+    </AppProvider>
   );
 }
 
