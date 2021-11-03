@@ -12,10 +12,17 @@ const AppProvider = ({ children }) => {
   const [video, setVideo] = useState();
   //time of the day:
   const [timeOfDay, setTimeOfDay] = useState("");
+  const [wish, setWish] = useState("");
+  //user
+  const [user, setUser] = useState("Ted");
   const getTimeOfDay = () => {
     let hour = new Date().getHours();
-    const wish = `${(hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"}`;
-    setTimeOfDay(wish);
+    const timeOfDay = `${
+      (hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"
+    }`;
+    setTimeOfDay(timeOfDay);
+    const wish = `Good ${timeOfDay} ${user}!`;
+    setWish(wish);
   };
   useEffect(() => {
     getTimeOfDay();
@@ -63,6 +70,8 @@ const AppProvider = ({ children }) => {
         videos,
         video,
         timeOfDay,
+        wish,
+        user,
         //functionalities:
         chooseTimeInterval,
         getVideos,
