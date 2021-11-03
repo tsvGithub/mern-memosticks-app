@@ -15,7 +15,7 @@ const Dashboard = () => {
   //   console.log(time);
   const [videos, setVideos] = useState([]);
   // const [video, setVideo] = useState({});
-  console.log(video);
+  console.log(`video`, video);
 
   // const getVideos = async () => {
   //   const res = await axios.get("/all");
@@ -28,17 +28,6 @@ const Dashboard = () => {
   //   getVideos();
   // }, []);
   //-------------
-  //Get One Video => 'Morning'
-  // const getOneVideo = async (video) => {
-  //   // let newTodo = { ...todo };
-  //   const res = await axios.get(`/${video._id}`);
-  //   // const res = await axios.put(`/todos/${newTodo._id}`, newTodo);
-  //   // console.log(res.data); //
-  //   // setTodo(res.data);
-  //   const selectedVideo = await res.data.video;
-  //   // console.log(`videos`, videos);
-  //   setVideo(selectedVideo);
-  // };
 
   const allVideos = videos.map((video) => {
     return (
@@ -48,16 +37,33 @@ const Dashboard = () => {
       </section>
     );
   });
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <h3>{time}</h3>
-      {/* {allVideos} */}
+
+  if (!video) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+  if (video) {
+    return (
       <section className="container" key={video._id}>
         <h3>{video.title}</h3>
         <h3>{video.length}</h3>
         <iframe src={video.url} title="YouTube video player"></iframe>
       </section>
+    );
+  }
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <h3>{time}</h3>
+      {/* {allVideos} */}
+      {/* <section className="container" key={video._id}>
+        <h3>{video.title}</h3>
+        <h3>{video.length}</h3>
+        <iframe src={video.url} title="YouTube video player"></iframe>
+      </section> */}
     </div>
   );
 };

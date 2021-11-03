@@ -17,14 +17,14 @@ const AppProvider = ({ children }) => {
   const getTimeOfDay = () => {
     let hour = new Date().getHours();
     // console.log(hour);
-    const wish = `${(hour > 5 && hour < 12 && "Morning") || (hour > 12 && hour <= 19 && "Afternoon") || "Evening"} `;
+    const wish = `${(hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"} `;
     // console.log(wish);
     setTimeOfDay(wish);
   };
   useEffect(() => {
     getTimeOfDay();
     // console.log(timeOfDay);
-  }, [time]);
+  }, []);
   //----------------------------------------------------------------
   const getVideos = async () => {
     const res = await axios.get("/all");
@@ -38,16 +38,24 @@ const AppProvider = ({ children }) => {
   }, []);
 
   const chooseTimeInterval = (time) => {
-    console.log(time);
+    // console.log(time);
     setTime(time);
+
     // getOneVideo();
   };
 
   const getOneVideo = async () => {
+    // debugger;
     console.log(`videos`, videos);
     console.log(`time`, time);
-    let video = videos.filter((video) => video.length === time);
-    console.log(...video); //Array(1)
+    console.log(`timeOfDay`, timeOfDay);
+    // console.log(videos.filter((video) => video.length === time && video.timesOfDay === timeOfDay));
+    let video = videos.filter(
+      (video) =>
+        //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
+        video.timesOfDay === timeOfDay.trim() && video.length === time
+    );
+    console.log(`...video`, ...video); //Array(1)
     // console.log(video._id); //undefined;
     // // let id = video[0]._id;
     // console.log([...video]); //
@@ -58,7 +66,7 @@ const AppProvider = ({ children }) => {
     // let videoId = pirmais._id;
     // console.log(videoId);
     setVideo(...video);
-    console.log(video); //
+    console.log(`video`, video); //
     // let selected = video[0];
     // console.log(selected._id);
     // let id = selected._id;
@@ -68,18 +76,19 @@ const AppProvider = ({ children }) => {
     // console.log(`oneVideo`, { video });
     // // console.log(oneVideo.length);
     // console.log(video[0].title);
-    console.log(video[0]._id);
-    console.log(video._id); //undefined;
-    let id = video[0]._id;
+    //!
+    // console.log(video[0]._id);
+    // console.log(video._id); //undefined;
+    // let id = video[0]._id;
 
-    const res = await axios.get(`/${id}`);
-    console.log(res.data); //
-    // // setTodo(res.data);
-    const selectedVideo = await res.data;
-    // // console.log(`videos`, videos);
-    console.log({ selectedVideo });
-    console.log(selectedVideo.url);
-    setVideo(selectedVideo);
+    // const res = await axios.get(`/${id}`);
+    // console.log(res.data); //
+    // // // setTodo(res.data);
+    // const selectedVideo = await res.data;
+    // // // console.log(`videos`, videos);
+    // console.log({ selectedVideo });
+    // console.log(selectedVideo.url);
+    // setVideo(selectedVideo);
   };
 
   useEffect(() => {
