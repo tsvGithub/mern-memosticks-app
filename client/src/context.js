@@ -10,91 +10,50 @@ const AppProvider = ({ children }) => {
   //
   const [videos, setVideos] = useState([]);
   const [video, setVideo] = useState();
-  //   console.log({ video });
   //time of the day:
   const [timeOfDay, setTimeOfDay] = useState("");
-  //   let hour = new Date().getHours();
   const getTimeOfDay = () => {
     let hour = new Date().getHours();
-    // console.log(hour);
-    const wish = `${(hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"} `;
-    // console.log(wish);
+    const wish = `${(hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"}`;
     setTimeOfDay(wish);
   };
   useEffect(() => {
     getTimeOfDay();
-    // console.log(timeOfDay);
   }, []);
   //----------------------------------------------------------------
+  //get All videos
   const getVideos = async () => {
     const res = await axios.get("/all");
-    // console.log(`getVideos 'res':`, res);
     const videos = await res.data.videos;
-    // console.log(`videos`, videos);
     setVideos(videos);
   };
   useEffect(() => {
     getVideos();
   }, []);
-
+  //-----------------------------------------------------------------
+  //How much time do you have?
   const chooseTimeInterval = (time) => {
-    // console.log(time);
     setTime(time);
-
-    // getOneVideo();
   };
-
+  //-----------------------------------------------------------------
+  //Get One Video:
   const getOneVideo = async () => {
-    // debugger;
     console.log(`videos`, videos);
     console.log(`time`, time);
     console.log(`timeOfDay`, timeOfDay);
-    // console.log(videos.filter((video) => video.length === time && video.timesOfDay === timeOfDay));
     let video = videos.filter(
       (video) =>
         //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
         video.timesOfDay === timeOfDay.trim() && video.length === time
     );
-    console.log(`...video`, ...video); //Array(1)
-    // console.log(video._id); //undefined;
-    // // let id = video[0]._id;
-    // console.log([...video]); //
-    // console.log({ ...video });
-    // console.log(...video); ///
-
-    // let [pirmais] = video;
-    // let videoId = pirmais._id;
-    // console.log(videoId);
+    // console.log(`...video`, ...video);
     setVideo(...video);
-    console.log(`video`, video); //
-    // let selected = video[0];
-    // console.log(selected._id);
-    // let id = selected._id;
-
-    // setVideo(video);
-    // // let oneVideo = videos.filter((video) => video.length === time);
-    // console.log(`oneVideo`, { video });
-    // // console.log(oneVideo.length);
-    // console.log(video[0].title);
-    //!
-    // console.log(video[0]._id);
-    // console.log(video._id); //undefined;
-    // let id = video[0]._id;
-
-    // const res = await axios.get(`/${id}`);
-    // console.log(res.data); //
-    // // // setTodo(res.data);
-    // const selectedVideo = await res.data;
-    // // // console.log(`videos`, videos);
-    // console.log({ selectedVideo });
-    // console.log(selectedVideo.url);
-    // setVideo(selectedVideo);
+    // console.log(`video`, video); //
   };
-
   useEffect(() => {
     getOneVideo();
   }, [time]);
-
+  //========================================
   return (
     <AppContext.Provider
       value={{
@@ -103,9 +62,8 @@ const AppProvider = ({ children }) => {
         setTime,
         videos,
         video,
-        // hour,
         timeOfDay,
-        //
+        //functionalities:
         chooseTimeInterval,
         getVideos,
         getOneVideo,
