@@ -2,6 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 const AppContext = React.createContext();
+//THEME (1)
+//localStorage for user preferences
+//Application=>localStorage: key-value
+const getStorageTheme = () => {
+  let mood = "dark";
+  //'mood'=>key; if the kye exists
+  //set 'value' to the value that was passed
+  if (localStorage.getItem("mood")) {
+    mood = localStorage.getItem("mood");
+  }
+  console.log(mood);
+  //return default value or value of the key from localStorage.
+  return mood;
+};
+
 const AppProvider = ({ children }) => {
   //State:
   //exercises length:
@@ -15,13 +30,34 @@ const AppProvider = ({ children }) => {
   const [wish, setWish] = useState("");
   //user
   const [user, setUser] = useState("Ted");
+  //THEME (2)
+  const [mood, setMood] = useState(getStorageTheme());
+  console.log(mood);
+  //---------------
+  //THEME (3):
+  const switchMood = () => {
+    setMood(mood === "dark" ? "light" : "dark");
+    console.log(mood);
+  };
+  //THEME (4):
+  //run every time 'mood' changes
+  useEffect(() => {
+    //access HTML document & 'class' and set mood
+    document.documentElement.className = mood;
+    //every time 'mood' changes value => set
+    //localStorage to this value.
+    localStorage.setItem("mood", mood);
+    console.log(mood);
+  }, [mood]);
+  //====================
+
   const getTimeOfDay = () => {
     let hour = new Date().getHours();
     const timeOfDay = `${
       (hour > 5 && hour < 12 && "Morning") || (hour >= 12 && hour <= 19 && "Afternoon") || "Evening"
     }`;
     setTimeOfDay(timeOfDay);
-    const wish = `Good ${timeOfDay} ${user}!`;
+    const wish = `Good ${timeOfDay}, ${user}!`;
     setWish(wish);
   };
   useEffect(() => {
@@ -72,7 +108,9 @@ const AppProvider = ({ children }) => {
         timeOfDay,
         wish,
         user,
+        mood,
         //functionalities:
+        switchMood,
         chooseTimeInterval,
         getVideos,
         getOneVideo,

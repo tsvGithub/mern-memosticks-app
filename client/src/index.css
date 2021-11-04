@@ -1,0 +1,72 @@
+/* * {
+  border: 0;
+  margin: 0;
+  padding: 0;
+} */
+
+/* html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+} */
+body {
+  --color-black: #222731;
+  --color-white: #fefefe;
+  --color-error: #f74646;
+
+  --main-text-color: var(--color-black);
+  --body-background: #f6f8ff;
+  --bg-component: var(--color-white);
+  --bg-component-2: #f6f8ff;
+}
+body.dark-mode {
+  --main-text-color: #ffffff;
+  --body-background: #141d2f;
+  --bg-component: #1e2a47;
+  --bg-component-2: #141d2f;
+}
+body {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  line-height: 25px;
+  color: var(--main-text-color);
+  background: var(--body-background);
+}
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 15px;
+    line-height: 25px;
+  }
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.theme-switcher {
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 0;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.theme-switcher img {
+  margin-left: 16px;
+}
+
+@media screen and (min-width: 1440px) {
+  .theme-switcher:hover {
+    opacity: 0.5;
+  }
+}
