@@ -11,23 +11,25 @@ const Menu = () => {
 
   return (
     <main className={`wrapper wrapper-${mood}`}>
-      {/*========================THEME=========================== */}
-      <button className="switcher" onClick={switchMood}>
-        <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
-      </button>
+      <section className={`outer outer-${mood}`}>
+        {/*========================THEME=========================== */}
+        <button className="switcher" onClick={switchMood}>
+          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
+        </button>
 
-      <h1>{wish}</h1>
-      {/* {timeOfDay} */}
-      <div className={`container container-${mood}`}>
-        <h3>How much time do you have?</h3>
-        {times.map((time) => {
-          return (
-            <button onClick={() => chooseTimeInterval(time)} key={time}>
-              <Link to="/dashboard"> {time} minutes</Link>
-            </button>
-          );
-        })}
-      </div>
+        <h1>{wish}</h1>
+        {/* {timeOfDay} */}
+        <div className={`container container-${mood}`}>
+          <h3>How much time do you have?</h3>
+          {times.map((time) => {
+            return (
+              <button onClick={() => chooseTimeInterval(time)} key={time}>
+                <Link to="/dashboard"> {time} minutes</Link>
+              </button>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 };
