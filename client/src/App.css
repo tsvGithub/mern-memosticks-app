@@ -39,7 +39,8 @@ Variables
   --transition: all 0.3s linear;
   --spacing: 0.1rem;
   --radius: 0.25rem;
-  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --light-shadow: 0 5px 15px rgb(240 236 236 / 65%);
+  /* --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
   --max-width: 1170px;
   --fixed-width: 450px;
@@ -87,7 +88,7 @@ select:focus {
   outline: none;
 }
 body {
-  line-height: 1.5;
+  /* line-height: 1.5; */
   height: 100vh;
   /* color: var(--DT-Light-Grayish-Blue); */
 
@@ -125,21 +126,25 @@ a {
 .outer {
   display: flex;
   flex-direction: column;
-  /* height: 80vh;
-  max-height: clamp(min(40%, 500px), 80%, 600px); */
+  /*height: 80vh;
+  max-height: clamp(min(40%, 500px), 80%, 600px);
+  */
   width: 75%;
   width: clamp(min(95%, 400px), 50%, 540px);
-  border-radius: 5.25rem;
-  -webkit-border-radius: 5.25rem;
-  -moz-border-radius: 5.25rem;
-  -ms-border-radius: 5.25rem;
-  -o-border-radius: 5.25rem;
+  border-radius: 6.25rem;
+  -webkit-border-radius: 6.25rem;
+  -moz-border-radius: 6.25rem;
+  -ms-border-radius: 6.25rem;
+  -o-border-radius: 6.25rem;
+  /* box-shadow: var(--dark-shadow); */
 }
 .outer-dark {
   background-color: var(--DT-outer-component);
+  box-shadow: var(--light-shadow);
 }
 .outer-light {
   background-color: var(--LT-Very-Light-Grayish-Blue);
+  box-shadow: var(--dark-shadow);
 }
 .container {
   /*width: 50%;
@@ -148,6 +153,7 @@ a {
   */
   width: clamp(min(95%, 340px), 50%, 540px);
   margin: 3% auto;
+  padding-bottom: 2rem;
   display: grid;
   grid-row-gap: 20px;
   border-radius: var(--radius);
@@ -163,6 +169,13 @@ a {
 .container > button {
   width: 75%;
   margin: 0 auto;
+  background-color: var(--LT-body-background);
+  box-shadow: var(--dark-shadow);
+  border-radius: 0.25rem;
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  -ms-border-radius: 0.25rem;
+  -o-border-radius: 0.25rem;
 }
 
 nav {
@@ -198,8 +211,6 @@ h1 {
   align-self: end;
 }
 .switcher img {
-  color: var(--DT-Light-Grayish-Blue);
-  color: red;
   -webkit-appearance: none;
   border: 1px solid transparent;
 }
