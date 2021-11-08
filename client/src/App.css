@@ -5,8 +5,8 @@ Variables
 ===============*/
 :root {
   /* Primary */
-  /* --Primary-Bright-Blue: #3a7bfd;
-  --Primary-Check-Background: linear-gradient #57ddff to #c058f3; */
+  --Primary-Bright-Blue: #3a7bfd;
+  --Primary-Check-Background: linear-gradient #57ddff to #c058f3;
   --color-black: #222731;
   --color-white: #fefefe;
   --color-error: #f74646;
@@ -104,7 +104,9 @@ li {
 a {
   text-decoration: none;
 }
-
+a:active {
+  color: inherit;
+}
 .wrapper {
   width: 100vw;
   min-height: 100vh;
@@ -177,6 +179,9 @@ a {
   -ms-border-radius: 0.25rem;
   -o-border-radius: 0.25rem;
 }
+.container > button:hover {
+  background-color: var(--LT-Light-Grayish-Blue);
+}
 
 nav {
   display: flex;
@@ -184,9 +189,21 @@ nav {
   margin-top: 3rem;
 }
 
-iframe {
-  width: 420px;
-  height: 315px;
+.embed-container {
+  /* position: relative; */
+  padding-bottom: 10%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe {
+  /* width: 420px;
+  height: 315px; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 h1,
 h3 {
@@ -213,6 +230,15 @@ h1 {
 .switcher img {
   -webkit-appearance: none;
   border: 1px solid transparent;
+}
+.switcher > img:hover {
+  background-color: var(--LT-Light-Grayish-Blue);
+  border: 0;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 button.switcher,
 img.sw {

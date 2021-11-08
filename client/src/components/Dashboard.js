@@ -1,7 +1,7 @@
 import React from "react";
 import { useGlobalContext } from "../context";
 const Dashboard = () => {
-  const { time, video } = useGlobalContext();
+  const { time, video, mood } = useGlobalContext();
   console.log(`video`, video);
   //-------------
   // const allVideos = videos.map((video) => {
@@ -22,10 +22,13 @@ const Dashboard = () => {
   }
   if (video) {
     return (
-      <section className="container" key={video._id}>
-        <h3>{video.title}</h3>
-        <h3>{video.length}</h3>
-        <iframe src={video.url} title="YouTube video player"></iframe>
+      <section className={`wrapper wrapper-${mood}`} key={video._id}>
+        {/* <h3>{video.title}</h3>
+        <h3>{video.length}</h3> */}
+        <div className="embed-container">
+          {/* <div className="outer embed-container"> */}
+          <iframe src={video.url} allowfullscreen title="YouTube video player"></iframe>
+        </div>
       </section>
     );
   }
