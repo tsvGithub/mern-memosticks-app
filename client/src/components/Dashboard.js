@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
 const Dashboard = () => {
   const { time, video, mood } = useGlobalContext();
@@ -28,6 +29,9 @@ const Dashboard = () => {
         <div className="embed-container">
           {/* <div className="outer embed-container"> */}
           <iframe src={video.url} allowfullscreen title="YouTube video player"></iframe>
+          <button>
+            <Link to="/">Back Home</Link>
+          </button>
         </div>
       </section>
     );
