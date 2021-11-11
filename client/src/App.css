@@ -166,9 +166,6 @@ a:active {
   -o-border-radius: var(--radius);
   background-color: transparent;
 }
-.container-dark {
-  /* background-color: var(--DT-outer-component); */
-}
 .container > button,
 .embed-container > button {
   width: 75%;
@@ -246,14 +243,18 @@ h1 {
   -webkit-appearance: none;
   border: 1px solid transparent;
 }
-.switcher > img:hover {
-  background-color: var(--LT-Light-Grayish-Blue);
-  border: 0;
+.switcher img:hover {
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+}
+.switcher-dark > img:hover {
+  box-shadow: var(--light-shadow);
+}
+.switcher-light > img:hover {
+  box-shadow: var(--dark-shadow);
 }
 button.switcher,
 img.sw {
@@ -595,24 +596,38 @@ button.filter-btn:hover {
     gap: 1rem;
   }
 }
-
-@media screen and (max-width: 400px) {
-  .container > button
-  /* .embed-container > button  */ {
+/* ========================================== */
+/*---Mobile portrait------ */
+@media screen and (max-width: 400px) and (orientation: portrait) {
+  .container > button {
     width: 50%;
     margin: 0 auto;
   }
-  .container {
-    background-color: transparent;
-  }
   h1 {
     font-size: 2rem;
+    font-size: calc(1.125rem + 2vw);
+  }
+  .wrapper {
+    background-color: greenyellow;
   }
 }
-
-@media only screen and (orientation: landscape) {
-  h1,
-  h3 {
-    font-size: 1rem;
+/* ========================================== */
+/*---Mobile landscape------ */
+@media only screen and (orientation: landscape) and (max-width: 700px) {
+  h1 {
+    font-size: inherit;
+  }
+  .wrapper {
+    background-color: pink;
+  }
+}
+/* ========================================== */
+/*---DESKTOP (>650px===landscape)------ */
+@media only screen and (orientation: landscape) and (min-width: 701px) {
+  h1 {
+    font-size: calc(1.125rem + 2vw);
+  }
+  .wrapper {
+    background-color: blueviolet;
   }
 }

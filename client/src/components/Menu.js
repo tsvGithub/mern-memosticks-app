@@ -13,7 +13,7 @@ const Menu = () => {
     <main className={`wrapper wrapper-${mood}`}>
       <section className={`outer outer-${mood}`}>
         {/*========================THEME=========================== */}
-        <button className="switcher" onClick={switchMood}>
+        <button className={`switcher switcher-${mood}`} onClick={switchMood}>
           <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
         </button>
 
