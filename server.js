@@ -1,11 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
 
 const app = express();
 //========== MIDDLEWARE ================
 app.use(cors());
 app.use(express.json());
+
+//NB!
+//try this:
+//Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work.
+//https://www.npmjs.com/package/express-session
+app.use(cookieParser());
 
 //============= ROUTES ===================
 const videos = require("./routes");
