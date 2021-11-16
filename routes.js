@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express.Router();
-const Video = require("./Video.model");
+const Video = require("./models/Video.model");
 
 // //CRUD
 // //localhost:5000 and then at the end:

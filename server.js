@@ -1,19 +1,36 @@
 const express = require("express");
+const app = express();
+
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 
-const app = express();
-//========== MIDDLEWARE ================
+//I => II.models/User.model.js
+
 app.use(cors());
 app.use(express.json());
 
-//NB!
-//try this:
+//NB! try this:
 //Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work.
 //https://www.npmjs.com/package/express-session
 app.use(cookieParser());
+
+//---------------
+//Test User model:
+const User = require("./models/User.model");
+const userInput = {
+  username: "zhurka",
+  password: "password",
+  role: "admin",
+};
+const user = new User(userInput);
+user.save((err, document) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(document);
+});
 
 //============= ROUTES ===================
 const videos = require("./routes");
@@ -22,6 +39,8 @@ app.use("/", videos);
 
 //========== EVIROMENT VARIABLES ========
 require("dotenv").config();
+// dotenv.config(); //'require' is above
+
 // console.log(process.env.DATABASEURL);
 // console.log(process.env.Atlas_URI);
 
@@ -34,13 +53,11 @@ mongoose
     // useFindAndModify: false,
   })
   .then(() => {
-    console.log("DB Atlas is connected");
+    console.log("MongoDB Atlas connected");
   })
   .catch((err) => {
-    console.log("Can't connect to the Atlas DB", err.message);
+    console.log("Can't connect to the MongoDB Atlas", err.message);
   });
-//=======================================================
-//Routes
 
 //========================================================
 //Server
