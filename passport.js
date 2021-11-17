@@ -3,7 +3,7 @@
 const passport = require("passport");
 //Passport strategy for authenticating with a username and password
 //LocalStrategy is how we are going to be authenticating against a DB (username & password)
-const LocalStorage = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 //User model : username & password
 const User = require("./models/User.model");
 //-----------------------------
@@ -20,7 +20,7 @@ passport.use(
   //LocalStr. with verified cb: username,password & done
   //'done' will be invoked when we are done
   new LocalStrategy((username, password, done) => {
-    //to authenticate agianst the DB
+    //authenticates agianst the DB
     //check if 'user' exist => find username
     //and cb
     User.findOne({ username }, (err, user) => {
@@ -28,20 +28,19 @@ passport.use(
       if (err) {
         return done(err);
       }
-      //no 'user' exists
+      //if no 'user' exists (accout is not exist)
       if (!user) {
         //invoke 'done' function with no err (null) &
         //did not find a user(false)
         return done(null, false);
       }
-      //if OK: =>
-      //!!!
+      //if OK & 'user' exists: => check if password is correct:
       //'user' for (4b) const { _id, username, role } = req.user;
-      //comparePassword (2b)
-      //check compare if password is correct
-      //ComparePassword comes from User.js model
-      //we pass in ComparePassword func in Model 'password"
-      // and cb===done
-    });
+
+      //'comparePassword' (comes from 2.4> models/User.model.js
+      //'comparePassword' accepts password from the client & 'cb'=> is a 'done' function)
+      //'comparePassword' compares password from the client to the hashed password
+      user.comparePassword(password, done);
+    }); //jwt.io
   })
 );
