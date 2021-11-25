@@ -17,20 +17,20 @@ app.use(express.json());
 app.use(cookieParser());
 
 //---------------
-//Test User model:
-const User = require("./models/User.model");
-const userInput = {
-  username: "zhurka",
-  password: "password",
-  role: "admin",
-};
-const user = new User(userInput);
-user.save((err, document) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(document);
-});
+// //Test User model: !!! Uncomment the following =>
+// const User = require("./models/User.model");
+// const userInput = {
+//   username: "zhurka",
+//   password: "password",
+//   role: "admin",
+// };
+// const user = new User(userInput);
+// user.save((err, document) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(document);
+// });
 
 //============= ROUTES ===================
 const videos = require("./routes");

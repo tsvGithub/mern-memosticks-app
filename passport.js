@@ -13,14 +13,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 
 //-----------------------
 //3
-//When 'user' is authenticated (logged in) we set a cookie on
-//the client browser and this cookie is the JWT token.
 //'cookieExtractor' extracts JWT token from the request ('req').
-
-//a)The client requests authorization to the authorization server.
-//b)When the authorization is granted, the authorization server
-//returns an access token to the application.
-//c)The application uses the access token to access a protected resource.
 const cookieExtractor = (req) => {
   // extracted token:
   let token = null;
@@ -34,39 +27,49 @@ const cookieExtractor = (req) => {
 };
 
 //----------------------
-//2
-//AUTHORIZATION (to protect endpoints) +++ (4c) Logout
+//2 AUTHORIZATION: This is the most common scenario for using JWT. Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
+//Authorization (to protect endpoints) +++ (4c) Logout
 console.log(process.env.secretOrKey);
+//********
+//a)The client requests authorization to the authorization server.
+//b)When the authorization is granted, the authorization server
+//returns an access token to the application.
+//c)The application uses the access token to access a protected resource.
+//********
 
+//2.1. SET COOKIE ('JWT token') on a client browser:
+//JWTs are credentials, which can grant access to resources. Be careful where you paste them!
+//All validation and debugging is done on the client side.
+//When 'user' is authenticated (logged in) we SET a COOKIE on
+//a client browser and this cookie is the JWT token.
 passport.use(
-  //jwt strategy with options object
+  //jwt strategy with {options object}
   new JwtStrategy(
-    //1)first option 'jwtFromRequest' is the func (3) 'cookieExtractor'
-    //2)second option 'secretOrKey' is a secret key that we use to sign to token.
-    //'secretOrKey' is used to verify that the JWT token (from 'cookieExtractor') is valid.
-
-    //So we signed our JWT token with "process.env.secretOrKey".
-    //So we need to verify using the same 'key'.
-    //!!!Also the 'key' shouldn't be that simple.
+    //1)first option 'jwt From Request' is the func (3) 'cookieExtractor'
+    //2)second option 'secret Or Key' is a secret key to sign to token.
+    //'secretOrKey' is used to verify that the JWT (from 'cookieExtractor') is valid.
     {
+      //'cookieExtractor' checks&extracts JWT token from the request ('req').
       jwtFromRequest: cookieExtractor,
       //----------------------------
       //matches (4ba) routes->User.js  process.env.secretOrKey,
-      //passport uses 'secretOrKey' to verify hat this token is legitimate (valid)
+      //'secretOrKey'verifis that this token is legitimate (valid)
+      //JWT token is signed with "process.env.secretOrKey".
+      //So we need to verify using the same 'key'.!!!Also the 'key' shouldn't be that simple.
       secretOrKey: process.env.secretOrKey,
     },
-    //a verified callback:
-    //'payload' === data we set whithin JWT token
+    //+ a verified callback:
+    //'payload'===data we set whithin JWT token
     // & func 'done'
     (payload, done) => {
       //if user exists: find 'user'
-      // _id => search by 'primary key' in DB;
+      // _id => search by 'primary key (id)' in DB;
       //JWT has 'claim' called 'subject'('sub')
       //that is a 'primary key'('_id') of 'user'.
       User.findById({ _id: payload.sub }, (err, user) => {
-        // if error: return 'done' func with Err & 'user' didn't find === false
+        // if 'error': return 'done' func with Err & 'user' didn't find === false
         if (err) return done(err, false);
-        //if user exists: return 'done' with err===null
+        //if 'user' exists: return 'done' with err===null
         //and 'user' object. Because 'user' is already authenticated (logged in)
         //we don't need to check password to comapre
         if (user) return done(null, user);
@@ -101,12 +104,12 @@ passport.use(
         //did not find a user(false)
         return done(null, false);
       }
-      //if OK & 'user' exists: => check if password is correct:
-      //'user' for (4b) const { _id, username, role } = req.user;
-
-      //'comparePassword' (comes from 2.4> models/User.model.js
-      //'comparePassword' accepts password from the client & 'cb'=> is a 'done' function)
-      //'comparePassword' compares password from the client to the hashed password
+      //if OK & 'user' exists: =>
+      //check if password is correct:
+      //'user' stands for const { _id, username, role } = req.user;(4b)
+      //'comparePassword' comes from models/User.model.js>2.4.
+      //'comparePassword' accepts 'password' from the client & 'cb'=> is a 'done' function)
+      //'comparePassword' compares 'password' from the client to the 'hashed password'
       user.comparePassword(password, done);
     }); //jwt.io
   })

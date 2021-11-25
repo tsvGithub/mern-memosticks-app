@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // II <=I.server.js / III => passport.js
-//1)
+//1) Model Schema
 const User = new mongoose.Schema({
   username: {
     type: String,
@@ -25,7 +25,8 @@ const User = new mongoose.Schema({
 //NB! Below used 'old fashion function' because of 'this'
 //'arrow func' will give an error!!!
 
-//3)
+//===================================================
+//3) Hashing (encrypting) password
 //=====================================================
 //bcrypt
 //mongoose pre-hook => code executes right before 'save'
@@ -65,7 +66,7 @@ User.pre("save", function (next) {
 //+++passport.js LocalStrategy (3a)
 //compare plain text from client
 //to hashed password within DB
-//1)passwod in plain text, 2)call-back
+//1)passwod in plain text, 2)call-back==='done'in psssport.js (1) 'user.comparePassword(password, done);'
 User.methods.comparePassword = function (password, cb) {
   //1)"password" from the client when user trying to sign in;
   //2)'this.password' hashed password
@@ -79,11 +80,15 @@ User.methods.comparePassword = function (password, cb) {
       //if 'password' isn't match (if isMatch === false)
       if (!isMatch) {
         console.log("Password doesn't match");
+        //return cb with null for error object &
+        //isMatch === false
+        console.log(isMatch);
+        return cb(null, isMatch);
       }
       //if 'password' matches (isMatch === true)
       console.log("Password matches");
       //return cb with null for error object &
-      //this==={user object} for (4b) req.user
+      //'this'==={user object} for (4b) req.user
       console.log(this);
       return cb(null, this);
     }
