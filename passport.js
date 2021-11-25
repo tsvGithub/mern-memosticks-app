@@ -1,4 +1,4 @@
-//III  <= II.User.model.js / => IV
+//III  <= II.User.model.js / => IV routes/User.routes.js
 //'passport' is AUTHENTICATION middleware.
 const passport = require("passport");
 //Passport strategy for authenticating with a username and password
@@ -6,6 +6,10 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 //User model : username & password
 const User = require("./models/User.model");
+//for secretOrKey:
+const dotenv = require("dotenv");
+dotenv.config();
+
 //-----------------------------
 // jwt.io
 //A Passport strategy for AUTHORIZATION with a JSON Web Token.

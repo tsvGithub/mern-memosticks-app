@@ -33,9 +33,15 @@ app.use(cookieParser());
 // });
 
 //============= ROUTES ===================
-const videos = require("./routes");
+//Setting up Express Routes
+const videos = require("./routes/Videos.routes");
 //if root url starts with / it's going to load everithing in videos
 app.use("/", videos);
+//-------------------------
+//require 'user' routes from routes/User
+const user = require("./routes/User.routes");
+//endpoint is '/user'
+app.use("/user", user);
 
 //========== EVIROMENT VARIABLES ========
 require("dotenv").config();
