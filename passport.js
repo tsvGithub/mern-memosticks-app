@@ -16,7 +16,7 @@ dotenv.config();
 const JwtStrategy = require("passport-jwt").Strategy;
 
 //-----------------------
-//3
+//3.3
 //'cookieExtractor' extracts JWT token from the request ('req').
 const cookieExtractor = (req) => {
   // extracted token:
@@ -31,9 +31,9 @@ const cookieExtractor = (req) => {
 };
 
 //----------------------
-//2 AUTHORIZATION: This is the most common scenario for using JWT. Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
+//3.2 AUTHORIZATION: This is the most common scenario for using JWT. Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
 //Authorization (to protect endpoints) +++ (4c) Logout
-console.log(process.env.secretOrKey);
+// console.log(process.env.secretOrKey);
 //********
 //a)The client requests authorization to the authorization server.
 //b)When the authorization is granted, the authorization server
