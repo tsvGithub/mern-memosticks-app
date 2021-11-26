@@ -6,6 +6,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 // const dotenv = require("dotenv");
 
+const passport = require("passport");
+app.use(passport.initialize());
+
 //I => II.models/User.model.js
 
 app.use(cors());

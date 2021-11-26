@@ -13,7 +13,7 @@ const Video = require("../models/Video.model");
 
 // console.log(process.env.secretOrKey);
 //---------------------------
-//4.2.1 SIGNIN TOKEN
+//4.2.1 create a SIGNIN TOKEN
 //'userId'===DB primary key _id
 const signToken = (userId) => {
   //jwt.sign(payload, secretOrKye, [options:'expires', callback])
@@ -106,12 +106,13 @@ user.post(
       //func 'signToken' with primary key (_id) (4.2.1. above)
       const token = signToken(_id);
       //---------------------------------
-      //set the cookie as the 'access token' (passport.js 3.3)
+      //a)set the cookie:
       res.cookie(
+        // 'access token' (passport.js 3.3)
         "access_token",
-        //pass in JWT token
+        //created JWT token (4.2.1.)
         token,
-        //pass next options:
+        //options:
         //SECURITY: make sure that JWT token doesn't get stolen
         //'httpOnly'=> makes that on the client side
         //(client browser) you cannot touch this cookie
@@ -121,7 +122,7 @@ user.post(
         //forgery attacks===poddelka, podlog,falj6ivka
         { httpOnly: true, sameSite: true }
       );
-      //sending back response:
+      //b)sending back response:
       res.status(200).json(
         //isAuthenticated: true because the user is successfully logged in
         {
