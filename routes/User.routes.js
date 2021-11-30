@@ -80,7 +80,7 @@ user.post("/register", (req, res) => {
 //'/login' route with passport middleware:
 user.post(
   "/login",
-  //strategy to authenticate===passport.authenticate("local") authenticates agianst the DB
+  //strategy to authenticate===passport.authenticate("local")(instead of "jwt" for LOGOUT) authenticates agianst the DB
   //see 'local strategy' passport.js (1) ===>
   //passport.use(new LocalStrategy(username, password, done) => User.findOne({username}) => user.comparePassword(password, done))
   passport.authenticate(
@@ -148,10 +148,9 @@ user.post(
 );
 
 //===========================================
-//4.3)
-//LOGOUT
+//4.3) LOGOUT
 //'/logout' route with 'passport' middleware:
-//strategy to authorizate==='jwt'(to protect endpoints)
+//strategy to authorizate===(instead of "local" for LOGIN) is 'jwt'(to protect endpoints)
 //see JwT strategy in passport.js 3.2. ->
 //passport.use(new JwtStrategy()),
 //second -> {set the session to false} so the server is not maintaining the session
@@ -161,7 +160,42 @@ user.get("/logout", passport.authenticate("jwt", { session: false }), (req, res)
   // 'access token' (passport.js 3.3)
   res.clearCookie("access_token");
   //send response back: return empty 'user' object
+  //'success' if successfully logout
   res.json({ user: { username: "", role: "" }, success: true });
+});
+
+//================================
+//===============================
+//4.4) VIDEOS  post
+//'/video' route with passport middleware:
+//strategy to authorizate===(instead of "local" for LOGIN) is 'jwt'(to protect endpoints)
+//see JwT strategy in passport.js 3.2. ->
+//passport.use(new JwtStrategy()),
+//second -> {set the session to false} so the server is not maintaining the session
+
+//'User' has to be logged in (JWT token) in order to create add video
+user.post("/video", passport.authenticate("jwt", { session: false }), (req, res) => {
+  //create a new 'video'=> 'req.body' comes from the client
+  const video = new Video(req.body);
+  //save new video to the DB
+  video.save((err) => {
+    if (err) {
+      res.status(500).json({ message: { msgBody: `DB Error ${err}`, msgError: true } });
+    } else {
+      //'req.user' is added by passport=> attaches 'user' to the request object;
+      //'user' is from DB => in Model->User.js (2) 'user' has [] of 'videos'
+      //'push' is adding 'video' to the 'videos' array within 'user'
+      req.user.videos.push(video);
+      //save updated 'user' to the DB
+      req.user.save((err) => {
+        if (err) {
+          res.status(500).json({ message: { msgBody: `DB Error ${err} `, msgError: true } });
+        } else {
+          res.status(200).json({ message: { msgBody: "Video creted!", msgError: false } });
+        }
+      });
+    }
+  });
 });
 
 module.exports = user;
