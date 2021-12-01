@@ -166,14 +166,14 @@ user.get("/logout", passport.authenticate("jwt", { session: false }), (req, res)
 
 //================================
 //===============================
-//4.4) VIDEOS  post
+//4.4) add VIDEOS
 //'/video' route with passport middleware:
 //strategy to authorizate===(instead of "local" for LOGIN) is 'jwt'(to protect endpoints)
 //see JwT strategy in passport.js 3.2. ->
 //passport.use(new JwtStrategy()),
 //second -> {set the session to false} so the server is not maintaining the session
 
-//'User' has to be logged in (JWT token) in order to create add video
+//'User' has to be logged in (JWT token) in order to add a new video
 user.post("/video", passport.authenticate("jwt", { session: false }), (req, res) => {
   //create a new 'video'=> 'req.body' comes from the client
   const video = new Video(req.body);
@@ -196,6 +196,36 @@ user.post("/video", passport.authenticate("jwt", { session: false }), (req, res)
       });
     }
   });
+});
+//=============================
+//4.5) GET all user's VIDEOS
+//'/videos' route with passport middleware:
+//strategy to authorizate===(instead of "local" for LOGIN) is 'jwt'(to protect endpoints)
+//see JwT strategy in passport.js 3.2. ->
+//passport.use(new JwtStrategy()),
+//second -> {set the session to false} so the server is not maintaining the session
+
+//user has to be logged in (JWT token) in order to get 'videos'
+user.get("/videos", passport.authenticate("jwt", { session: false }), (req, res) => {
+  //'req.user' is added by passport=> attaches 'user' to the request object;
+  //'user' is from DB => in Model->User.js (2) 'user' has [] of 'videos'
+  //'_id'===primary key
+  User.findById({ _id: req.user._id })
+    //when we find the 'user', the 'videos' array only
+    //has primary keys of 'videos' within it. We need to
+    //populate it with actual data of 'videos' to get back 'videos':
+    .populate("videos")
+    //execute 'populate'
+    //'document'===record in MongoDB collection
+    .exec((err, document) => {
+      if (err) {
+        res.status(500).json({ message: { msgBody: `DB Error ${err} `, msgError: true } });
+      } else {
+        //send back 'videos' => document.videos & send back
+        //set authenticated (for frontend) to true to let to know that user is still logged in
+        res.status(200).json({ videos: document.videos, authenticated: true });
+      }
+    });
 });
 
 module.exports = user;
