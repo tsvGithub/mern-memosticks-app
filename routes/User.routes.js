@@ -241,5 +241,18 @@ user.get("/admin", passport.authenticate("jwt", { session: false }), (req, res) 
     res.status(403).json({ message: { msgBody: "Not authorized!", msgError: true } });
   }
 });
+//=============================
+//4.7) keep 'user' logged in & sync with FE
+//if 'user' logged in, save in the state (React) that 'user' is logged in
+//if 'user' closes browser, the state gets reset
+
+//this endpoint makes sure that BE & FE is synced in.
+//to keep user still logged in if he was authenticated
+user.get("/authenticated", passport.authenticate("jwt", { session: false }), (req, res) => {
+  //pull out 'username' & 'role' from req.user
+  const { username, role } = req.user;
+  //sends back 'user' is authenticated & user information
+  res.status(200).json({ isAuthenticated: true, user: { username, role } });
+});
 
 module.exports = user;
