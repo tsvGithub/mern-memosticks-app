@@ -227,5 +227,19 @@ user.get("/videos", passport.authenticate("jwt", { session: false }), (req, res)
       }
     });
 });
+//=============================
+//=============================
+//4.6) ADMIN ROUTE
+//passport.authenticate("jwt") sends unauthorized request
+//if user don't have JWT token
+user.get("/admin", passport.authenticate("jwt", { session: false }), (req, res) => {
+  //check if user has right permissions === admin
+  if (req.user.role === "admin") {
+    res.status(200).json({ message: { msgBody: "Hello, admin!", msgError: false } });
+  } else {
+    //403===not authorized not an admin => it is a user
+    res.status(403).json({ message: { msgBody: "Not authorized!", msgError: true } });
+  }
+});
 
 module.exports = user;
