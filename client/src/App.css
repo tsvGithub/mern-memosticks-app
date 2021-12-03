@@ -166,6 +166,16 @@ a:active {
   -o-border-radius: var(--radius);
   background-color: transparent;
 }
+.basil {
+  background-image: url("assets/images/Basil.png");
+  opacity: 0.6;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 60vh;
+}
+.home {
+  padding-bottom: 0;
+}
 .container > button,
 .embed-container > button {
   width: 75%;

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Menu from "./components/Menu";
 import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 
 import { AppProvider } from "./context";
 import "./App.css";
@@ -16,8 +17,11 @@ function App() {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/menu">
             <Menu />
+          </Route>
+          <Route exact path="/">
+            <Home />
           </Route>
         </Switch>
       </Router>
