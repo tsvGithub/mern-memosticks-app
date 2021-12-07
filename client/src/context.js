@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-//Authentication (1)
+//Authentification (1)
 import AuthService from "./Services/AuthService";
+import moon from "./assets/images/icon-moon.svg";
+import sun from "./assets/images/icon-sun.svg";
+// import logout from "../assets/images/logout_white_18dp.svg";
+import logout from "./assets/images/logout_white_24dp.svg";
 
+//VI (V services/AuthService.js; VII -> App.js )
 const AppContext = React.createContext();
 //THEME (1)
 //localStorage for user preferences
@@ -14,7 +19,7 @@ const getStorageTheme = () => {
   if (localStorage.getItem("mood")) {
     mood = localStorage.getItem("mood");
   }
-  console.log(mood);
+  // console.log(mood);
   //return default value or value of the key from localStorage.
   return mood;
 };
@@ -33,7 +38,7 @@ const AppProvider = ({ children }) => {
   //user
   // const [user, setUser] = useState("Ted");
   //--------------------------
-  //Authentication (2)
+  //Authentification (2)
   //'user'===user that is logged in
   const [user, setUser] = useState(null);
   //isAuthenticated===if this user is authenticated or not
@@ -41,10 +46,12 @@ const AppProvider = ({ children }) => {
   //isLoaded is boolean value to see if the app is loaded
   //once we get the data => isLoaded===true
   const [isLoaded, setIsLoaded] = useState(false);
+  const [message, setMessage] = useState("");
+
   //-------------------------
   //THEME (2)
   const [mood, setMood] = useState(getStorageTheme());
-  console.log(mood);
+  // console.log(mood);
   //---------------
   //THEME (3):
   const switchMood = () => {
@@ -52,7 +59,7 @@ const AppProvider = ({ children }) => {
     console.log(mood);
   };
   //=================================
-  //Authentication (3)
+  //Authentification (3)
   //to persist authentication === сохранить аутентификацию
   //once user is logeed in we set a 'state' to let App
   //know that user has been authenticated.
@@ -84,6 +91,47 @@ const AppProvider = ({ children }) => {
         setIsLoaded(false);
       });
   }, []);
+  //-------------------
+  //Authentification (4)
+  const logoutHandler = () => {
+    //use 'AuthService' func 'logout' (1c)
+    AuthService.logout().then((data) => {
+      //if successfully logged out or not
+      if (data.success) {
+        //set 'user'(username, parrsord, role) to empty string ("")
+        setUser(data.user);
+        //set isAuthenticated to false
+        setIsAuthenticated(false);
+      }
+    });
+  };
+  //Authentification (5)
+  //Form
+  const changeForm = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+  const submitForm = (e) => {
+    e.preventDefault();
+    //fetch ('/login') with user from form
+    AuthService.login(user).then((data) => {
+      console.log(data);
+      //pull {stuff} from response parsed data
+      const { isAuthenticated, user, message } = data;
+      //if isAuthenticated===true
+      if (isAuthenticated) {
+        //update global state of user => (updated user)
+        setUser(user);
+        //update the isAuthenticated state => isAuthenticated(true)
+        setIsAuthenticated(isAuthenticated);
+        //navigate user to 'videos' page
+        //!!!
+        // props.history.push("/todos");
+      } else {
+        //if isAuthenticated===false =>display error message from server
+        setMessage(message);
+      }
+    });
+  };
   //================================
   //THEME (4):
   //run every time 'mood' changes
@@ -158,15 +206,24 @@ const AppProvider = ({ children }) => {
             video,
             timeOfDay,
             wish,
-            //Authentication (4)-----
+            //Authentification ()-----
             user,
             setUser,
             isAuthenticated,
             setIsAuthenticated,
+            logoutHandler,
+            logout,
+            changeForm,
+            submitForm,
+            message,
+            setMessage,
             //-------------
             mood,
-            //functionalities:
             switchMood,
+            moon,
+            sun,
+            switchMood,
+            //--------------------
             chooseTimeInterval,
             getVideos,
             getOneVideo,

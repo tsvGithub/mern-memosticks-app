@@ -2,16 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { useGlobalContext } from "../context";
-import moon from "./../assets/images/icon-moon.svg";
-import sun from "./../assets/images/icon-sun.svg";
+// import moon from "./../assets/images/icon-moon.svg";
+// import sun from "./../assets/images/icon-sun.svg";
+// // import logout from "../assets/images/logout_white_18dp.svg";
+// import logout from "../assets/images/logout_white_24dp.svg";
 
 const Menu = () => {
-  const { mood, switchMood, times, timeOfDay, wish, user, chooseTimeInterval } = useGlobalContext();
-  console.log(mood);
+  const { mood, moon, sun, logout, switchMood, logoutHandler, times, timeOfDay, wish, user, chooseTimeInterval } =
+    useGlobalContext();
+  // console.log(mood);
 
   return (
     <main className={`wrapper wrapper-${mood}`}>
       <section className={`outer outer-${mood}`}>
+        {/*!!!========================LOGOUT=========================== */}
+        <button className={`switcher switcher-${mood}`} onClick={logoutHandler}>
+          <img className="sw" src={logout} alt="logout" />
+        </button>
+
         {/*========================THEME=========================== */}
         <button className={`switcher switcher-${mood}`} onClick={switchMood}>
           <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />

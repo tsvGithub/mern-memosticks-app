@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Menu from "./Menu";
@@ -7,12 +7,13 @@ import AuthService from "../Services/AuthService";
 //global State
 import { useGlobalContext } from "../context";
 
-import moon from "./../assets/images/icon-moon.svg";
-import sun from "./../assets/images/icon-sun.svg";
+// import moon from "./../assets/images/icon-moon.svg";
+// import sun from "./../assets/images/icon-sun.svg";
 
+//VIII (VII -> App.js;  IX -> Login.js)
 const Home = () => {
-  const { mood, switchMood, isAuthenticated, setIsAuthenticated, user, setUser } = useGlobalContext();
-
+  const { mood, switchMood, moon, sun, logout, isAuthenticated, setIsAuthenticated, user, setUser } =
+    useGlobalContext();
   const unAuthenticated = () => {
     return (
       <>
@@ -30,7 +31,7 @@ const Home = () => {
     return (
       <>
         {/* two types of authenticated users:
-        admin or regular user */}
+        'admin' or regular 'user' */}
         {user.role === "admin" ? (
           <>
             <button>
@@ -57,14 +58,8 @@ const Home = () => {
         </button>
       </section>
       <div className={`home container container-${mood}`}>
+        {/*========================TWO Options======================= */}
         {!isAuthenticated ? unAuthenticated() : authenticated()}
-        {/* {times.map((time) => {
-            return (
-              <button onClick={() => chooseTimeInterval(time)} key={time}>
-                <Link to="/dashboard"> {time} minutes</Link>
-              </button>
-            );
-          })} */}
       </div>
     </main>
   );
