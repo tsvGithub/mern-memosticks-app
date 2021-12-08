@@ -59,12 +59,22 @@ const AppProvider = ({ children }) => {
   //THEME (2)
   const [mood, setMood] = useState(getStorageTheme());
   // console.log(mood);
-  //---------------
   //THEME (3):
   const switchMood = () => {
     setMood(mood === "dark" ? "light" : "dark");
     console.log(mood);
   };
+  //THEME (4):
+  //run every time 'mood' changes
+  useEffect(() => {
+    //access HTML document & 'class' and set mood
+    document.documentElement.className = mood;
+    //every time 'mood' changes value => set
+    //localStorage to this value.
+    localStorage.setItem("mood", mood);
+    console.log(mood);
+  }, [mood]);
+
   //=================================
   //Authentification (3)
   //to persist authentication === сохранить аутентификацию
@@ -119,34 +129,7 @@ const AppProvider = ({ children }) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const resetForm = () => {
-    setUser({
-      username: "",
-      password: "",
-      role: "",
-    });
-  };
-
-  function handleClick() {
-    console.log("Submitting...");
-    // console.log(history);
-    //pretend ajax request
-    setTimeout(() => {
-      //call history.push as a function
-      //and put in a new path to redirect programmatically
-      //to another path. Like push it to the array af history
-      history.push("/menu");
-    }, 2000);
-    // //go back 1 p in the history
-    // history.goBack()
-    // //the same as:
-    // history.go(-1)
-    //"clean" history => replace the last place
-    // history.replace("");
-  }
-
   const submitLoginForm = (e) => {
-    // console.log(`history: ${history}`);
     e.preventDefault();
     //fetch ('/login') with user from form
     AuthService.login(user).then((data) => {
@@ -161,43 +144,20 @@ const AppProvider = ({ children }) => {
         console.log(`context submitLoginForm username: ${user.username}`);
         //update the isAuthenticated state => isAuthenticated(true)
         setIsAuthenticated(isAuthenticated);
+        getTimeOfDay();
+
         //navigate user to 'Menu' page
-        //!!!
-        // console.log(history);
-        // props.history.push("/");
         history.push("/menu");
-        // handleClick();
       } else {
         //if isAuthenticated===false =>display error message from server
         setMessage(message);
       }
-      //clean form
-      // resetForm();
       //clear state
       // setUser({ username: "", password: "" });
     });
   };
-  // const handleClick = () => {
-  //   history.push("/dashboard");
-  // };
-  //================================
-  //THEME (4):
-  //run every time 'mood' changes
-  useEffect(() => {
-    //access HTML document & 'class' and set mood
-    document.documentElement.className = mood;
-    //every time 'mood' changes value => set
-    //localStorage to this value.
-    localStorage.setItem("mood", mood);
-    console.log(mood);
-  }, [mood]);
-  //====================
 
   const getTimeOfDay = () => {
-    // const { username } = user;
-    // console.log(`Context 'username' ${username}`);
-    // console.log(`user: ${user}`);
-
     let hour = new Date().getHours();
     const timeOfDay = `${
       (hour >= 5 && hour < 12 && "Morning") || (hour >= 12 && hour < 19 && "Afternoon") || (hour >= 19 && "Evening")
@@ -208,7 +168,7 @@ const AppProvider = ({ children }) => {
   };
   useEffect(() => {
     getTimeOfDay();
-  }, []);
+  }, [submitLoginForm]);
   //----------------------------------------------------------------
   //get All videos
   const getVideos = async () => {
@@ -227,9 +187,9 @@ const AppProvider = ({ children }) => {
   //-----------------------------------------------------------------
   //Get One Video:
   const getOneVideo = async () => {
-    console.log(`videos`, videos);
-    console.log(`time`, time);
-    console.log(`timeOfDay`, timeOfDay);
+    // console.log(`videos`, videos);
+    // console.log(`time`, time);
+    // console.log(`timeOfDay`, timeOfDay);
     let video = videos.filter(
       (video) =>
         //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
@@ -269,8 +229,6 @@ const AppProvider = ({ children }) => {
             submitLoginForm,
             message,
             setMessage,
-            // history,
-            handleClick,
             //-------------
             mood,
             switchMood,

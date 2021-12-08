@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-
-//fetch
-import AuthService from "../Services/AuthService";
+import React from "react";
 //global State
 import { useGlobalContext } from "../context";
 //Message displays messages from the Server
 import Message from "../components/Message";
 
 //IX (VIII Home.js; X -> Register.js)
-//'props' for 'history' => navigate user to 'todo' page
-// props.history.push("/todos");
+//'props' for 'history' => navigate user to 'Menu' page
+// props.history.push("/menu");
 const Login = (props) => {
-  //1 set state:
-  // const [user, setUser] = useState({ username: "", password: "" });
-  // const [message, setMessage] = useState("");
-  //2 global context
+  //global context
   const {
     mood,
     switchMood,
@@ -23,8 +16,6 @@ const Login = (props) => {
     sun,
     changeForm,
     submitLoginForm,
-    // history,
-    logout,
     user,
     setUser,
     isAuthenticated,
@@ -32,14 +23,7 @@ const Login = (props) => {
     logoutHandler,
     message,
     setMessage,
-    handleClick,
   } = useGlobalContext();
-  // console.log(`Login Component 'user' ${user}`);
-  // const { username } = user;
-  // console.log(`Login Component 'username' ${username}`);
-  const history = useHistory();
-  console.log(`Login Component history.length ${history.length}`);
-  console.log(`history ${{ history }}`);
 
   //3
   return (
@@ -70,7 +54,6 @@ const Login = (props) => {
 
             <button type="submit">Log in</button>
           </form>
-          <button onClick={handleClick}>Hi</button>
 
           {/*if message !==null display message from server OR do nothing   */}
           {message ? <Message message={message} /> : null}
