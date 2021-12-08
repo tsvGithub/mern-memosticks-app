@@ -18,6 +18,7 @@ ReactDOM.render(
       <App />
     </AppProvider>
   </Router>,
+  //in that scenario 'useHistory' won't work:
   // <AppProvider>
   //   <Router>
   //     <App />

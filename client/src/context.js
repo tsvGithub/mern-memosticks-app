@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import axios from "axios";
 //Authentification (1)
@@ -109,8 +109,7 @@ const AppProvider = ({ children }) => {
         setUser(data.user);
         //set isAuthenticated to false
         setIsAuthenticated(false);
-        <Redirect to="/login" />;
-        // history.push("/");
+        history.push("/");
       }
     });
   };
@@ -166,8 +165,8 @@ const AppProvider = ({ children }) => {
         //!!!
         // console.log(history);
         // props.history.push("/");
-        // history.push("/menu");
-        handleClick();
+        history.push("/menu");
+        // handleClick();
       } else {
         //if isAuthenticated===false =>display error message from server
         setMessage(message);
