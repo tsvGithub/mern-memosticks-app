@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 //fetch
 import AuthService from "../Services/AuthService";
 //global State
@@ -20,7 +22,8 @@ const Login = (props) => {
     moon,
     sun,
     changeForm,
-    submitForm,
+    submitLoginForm,
+    // history,
     logout,
     user,
     setUser,
@@ -29,8 +32,15 @@ const Login = (props) => {
     logoutHandler,
     message,
     setMessage,
+    handleClick,
   } = useGlobalContext();
-  console.log(user);
+  // console.log(`Login Component 'user' ${user}`);
+  // const { username } = user;
+  // console.log(`Login Component 'username' ${username}`);
+  const history = useHistory();
+  console.log(`Login Component history.length ${history.length}`);
+  console.log(`history ${{ history }}`);
+
   //3
   return (
     <main className={`wrapper wrapper-${mood}`}>
@@ -43,14 +53,12 @@ const Login = (props) => {
         <div className={`home container container-${mood}`}>
           {/*========================TWO Options======================= */}
           {/* {!isAuthenticated ? unAuthenticated() : authenticated()} */}
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitLoginForm}>
             <h3>Please sign in</h3>
             <label htmlFor="username">Username:</label>
             <input
               type="text"
               name="username"
-              //?
-              // value={user.username}
               onChange={changeForm}
               placeholder="Enter username"
               required
@@ -62,6 +70,7 @@ const Login = (props) => {
 
             <button type="submit">Log in</button>
           </form>
+          <button onClick={handleClick}>Hi</button>
 
           {/*if message !==null display message from server OR do nothing   */}
           {message ? <Message message={message} /> : null}

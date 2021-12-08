@@ -10,27 +10,28 @@ import { AppProvider } from "./context";
 import "./App.css";
 
 //VII (VI context; VIII -> Home.js)
-function App() {
+function App({ history }) {
   return (
-    //wrap whole app into AppProvider
-    <AppProvider>
-      <Router>
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/menu">
-            <Menu />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </AppProvider>
+    <>
+      {/* <AppProvider> */}
+      {/* <Router> */}
+      <Switch>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route exact path="/menu">
+          <Menu />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+      {/* </Router> */}
+      {/* </AppProvider> */}
+    </>
   );
 }
 

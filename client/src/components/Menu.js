@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { useGlobalContext } from "../context";
 // import moon from "./../assets/images/icon-moon.svg";
@@ -10,7 +10,12 @@ import { useGlobalContext } from "../context";
 const Menu = () => {
   const { mood, moon, sun, logout, switchMood, logoutHandler, times, timeOfDay, wish, user, chooseTimeInterval } =
     useGlobalContext();
+  // const history = useHistory();
+  // console.log(`history.length ${history.length}`);
+  // console.log(`history ${{ history }}`);
   // console.log(mood);
+  // const { username } = user;
+  // console.log(`Menu Component 'username' ${username}`);
 
   return (
     <main className={`wrapper wrapper-${mood}`}>

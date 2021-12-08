@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+
 import axios from "axios";
 //Authentification (1)
 import AuthService from "./Services/AuthService";
@@ -9,6 +11,7 @@ import logout from "./assets/images/logout_white_24dp.svg";
 
 //VI (V services/AuthService.js; VII -> App.js )
 const AppContext = React.createContext();
+//-----------------------------
 //THEME (1)
 //localStorage for user preferences
 //Application=>localStorage: key-value
@@ -25,6 +28,9 @@ const getStorageTheme = () => {
 };
 
 const AppProvider = ({ children }) => {
+  let history = useHistory();
+  // console.log(`history.length: ${history.length}`);
+
   //State:
   //exercises length:
   const [times, setTimes] = useState([5, 10, 15]);
@@ -41,6 +47,7 @@ const AppProvider = ({ children }) => {
   //Authentification (2)
   //'user'===user that is logged in
   const [user, setUser] = useState(null);
+  const [username, setUsername] = useState("");
   //isAuthenticated===if this user is authenticated or not
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   //isLoaded is boolean value to see if the app is loaded
@@ -102,6 +109,8 @@ const AppProvider = ({ children }) => {
         setUser(data.user);
         //set isAuthenticated to false
         setIsAuthenticated(false);
+        <Redirect to="/login" />;
+        // history.push("/");
       }
     });
   };
@@ -110,7 +119,35 @@ const AppProvider = ({ children }) => {
   const changeForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const submitForm = (e) => {
+
+  const resetForm = () => {
+    setUser({
+      username: "",
+      password: "",
+      role: "",
+    });
+  };
+
+  function handleClick() {
+    console.log("Submitting...");
+    // console.log(history);
+    //pretend ajax request
+    setTimeout(() => {
+      //call history.push as a function
+      //and put in a new path to redirect programmatically
+      //to another path. Like push it to the array af history
+      history.push("/menu");
+    }, 2000);
+    // //go back 1 p in the history
+    // history.goBack()
+    // //the same as:
+    // history.go(-1)
+    //"clean" history => replace the last place
+    // history.replace("");
+  }
+
+  const submitLoginForm = (e) => {
+    // console.log(`history: ${history}`);
     e.preventDefault();
     //fetch ('/login') with user from form
     AuthService.login(user).then((data) => {
@@ -121,17 +158,29 @@ const AppProvider = ({ children }) => {
       if (isAuthenticated) {
         //update global state of user => (updated user)
         setUser(user);
+        setUsername(user.username);
+        console.log(`context submitLoginForm username: ${user.username}`);
         //update the isAuthenticated state => isAuthenticated(true)
         setIsAuthenticated(isAuthenticated);
-        //navigate user to 'videos' page
+        //navigate user to 'Menu' page
         //!!!
-        // props.history.push("/todos");
+        // console.log(history);
+        // props.history.push("/");
+        // history.push("/menu");
+        handleClick();
       } else {
         //if isAuthenticated===false =>display error message from server
         setMessage(message);
       }
+      //clean form
+      // resetForm();
+      //clear state
+      // setUser({ username: "", password: "" });
     });
   };
+  // const handleClick = () => {
+  //   history.push("/dashboard");
+  // };
   //================================
   //THEME (4):
   //run every time 'mood' changes
@@ -146,12 +195,16 @@ const AppProvider = ({ children }) => {
   //====================
 
   const getTimeOfDay = () => {
+    // const { username } = user;
+    // console.log(`Context 'username' ${username}`);
+    // console.log(`user: ${user}`);
+
     let hour = new Date().getHours();
     const timeOfDay = `${
       (hour >= 5 && hour < 12 && "Morning") || (hour >= 12 && hour < 19 && "Afternoon") || (hour >= 19 && "Evening")
     }`;
     setTimeOfDay(timeOfDay);
-    const wish = `Good ${timeOfDay}, ${user}!`;
+    const wish = `Good ${timeOfDay}, ${username}!`;
     setWish(wish);
   };
   useEffect(() => {
@@ -214,9 +267,11 @@ const AppProvider = ({ children }) => {
             logoutHandler,
             logout,
             changeForm,
-            submitForm,
+            submitLoginForm,
             message,
             setMessage,
+            // history,
+            handleClick,
             //-------------
             mood,
             switchMood,
