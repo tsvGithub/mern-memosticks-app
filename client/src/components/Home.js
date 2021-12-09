@@ -12,7 +12,7 @@ import { useGlobalContext } from "../context";
 
 //VIII (VII -> App.js;  IX -> Login.js)
 const Home = () => {
-  const { mood, switchMood, moon, sun, logout, isAuthenticated, setIsAuthenticated, user, setUser } =
+  const { mood, switchMood, moon, sun, logout, logoutHandler, isAuthenticated, setIsAuthenticated, user, setUser } =
     useGlobalContext();
   const unAuthenticated = () => {
     return (
@@ -50,11 +50,18 @@ const Home = () => {
   return (
     <main className={`wrapper wrapper-${mood}`}>
       <h1>Cardio with Basil</h1>
-
+      {/* <button className={`switcher-home switcher switcher-${mood}`} onClick={switchMood}>
+        <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" title="Switch mood" />
+      </button> */}
       <section className={`basil outer outer-${mood}`}>
+        {/*!!!========================LOGOUT=========================== */}
+        <button className={`logout switcher switcher-${mood}`} onClick={logoutHandler}>
+          <img className="sw" src={logout} alt="logout" title="Logout" />
+        </button>
+
         {/*========================THEME=========================== */}
         <button className={`switcher switcher-${mood}`} onClick={switchMood}>
-          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
+          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" title="Switch mood" />
         </button>
       </section>
       <div className={`home container container-${mood}`}>

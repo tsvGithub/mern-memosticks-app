@@ -18,13 +18,13 @@ const Menu = () => {
     <main className={`wrapper wrapper-${mood}`}>
       <section className={`outer outer-${mood}`}>
         {/*!!!========================LOGOUT=========================== */}
-        <button className={`switcher switcher-${mood}`} onClick={logoutHandler}>
-          <img className="sw" src={logout} alt="logout" />
+        <button className={`logout switcher switcher-${mood}`} onClick={logoutHandler}>
+          <img className="sw" src={logout} alt="logout" title="Logout" />
         </button>
 
         {/*========================THEME=========================== */}
         <button className={`switcher switcher-${mood}`} onClick={switchMood}>
-          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
+          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" title="Switch mood" />
         </button>
 
         <h1>{wish}</h1>

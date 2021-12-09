@@ -28,18 +28,20 @@ const Login = (props) => {
   //3
   return (
     <main className={`wrapper wrapper-${mood}`}>
-      <section className={`basil outer outer-${mood}`}>
+      <section className={`outer outer-${mood}`}>
+        {/* <section className={`basil outer outer-${mood}`}> */}
         {/*========================THEME=========================== */}
-        <button className={`switcher switcher-${mood}`} onClick={switchMood}>
-          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" />
+        <button className={`login-switcher switcher switcher-${mood}`} onClick={switchMood}>
+          <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" title="Switch mood" />
         </button>
 
-        <div className={`home container container-${mood}`}>
+        <div className={`container container-${mood}`}>
+          {/* <div className={`home container container-${mood}`}> */}
           {/*========================TWO Options======================= */}
           {/* {!isAuthenticated ? unAuthenticated() : authenticated()} */}
-          <form onSubmit={submitLoginForm}>
+          <form className={`container container-${mood}`} onSubmit={submitLoginForm}>
             <h3>Please sign in</h3>
-            <label htmlFor="username">Username:</label>
+            {/* <label htmlFor="username">Username:</label> */}
             <input
               type="text"
               name="username"
@@ -49,10 +51,12 @@ const Login = (props) => {
               aria-label="username"
             />
 
-            <label htmlFor="password">Password:</label>
+            {/* <label htmlFor="password">Password:</label> */}
             <input type="password" name="password" onChange={changeForm} placeholder="Enter password" />
 
-            <button type="submit">Log in</button>
+            <button className="submit" type="submit">
+              Log in
+            </button>
           </form>
 
           {/*if message !==null display message from server OR do nothing   */}

@@ -163,9 +163,11 @@ const AppProvider = ({ children }) => {
       (hour >= 5 && hour < 12 && "Morning") || (hour >= 12 && hour < 19 && "Afternoon") || (hour >= 19 && "Evening")
     }`;
     setTimeOfDay(timeOfDay);
-    const wish = `Good ${timeOfDay}, ${username}!`;
+    const wish = username ? `Good ${timeOfDay}, ${username}!` : `Good ${timeOfDay}, Guest`;
+
     setWish(wish);
   };
+
   useEffect(() => {
     getTimeOfDay();
   }, [submitLoginForm]);
