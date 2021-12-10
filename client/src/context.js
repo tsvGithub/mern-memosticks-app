@@ -131,30 +131,35 @@ const AppProvider = ({ children }) => {
 
   const submitLoginForm = (e) => {
     e.preventDefault();
-    //fetch ('/login') with user from form
-    AuthService.login(user).then((data) => {
-      console.log(data);
-      //pull {stuff} from response parsed data
-      const { isAuthenticated, user, message } = data;
-      //if isAuthenticated===true
-      if (isAuthenticated) {
-        //update global state of user => (updated user)
-        setUser(user);
-        setUsername(user.username);
-        console.log(`context submitLoginForm username: ${user.username}`);
-        //update the isAuthenticated state => isAuthenticated(true)
-        setIsAuthenticated(isAuthenticated);
-        getTimeOfDay();
+    if (user.username && user.password) {
+      //fetch ('/login') with user from form
+      AuthService.login(user).then((data) => {
+        console.log(data);
+        //pull {stuff} from response parsed data
+        const { isAuthenticated, user, message } = data;
+        //if isAuthenticated===true
+        if (isAuthenticated) {
+          //update global state of user => (updated user)
+          setUser(user);
+          setUsername(user.username);
+          console.log(`context submitLoginForm username: ${user.username}`);
+          //update the isAuthenticated state => isAuthenticated(true)
+          setIsAuthenticated(isAuthenticated);
+          getTimeOfDay();
 
-        //navigate user to 'Menu' page
-        history.push("/menu");
-      } else {
-        //if isAuthenticated===false =>display error message from server
-        setMessage(message);
-      }
-      //clear state
-      // setUser({ username: "", password: "" });
-    });
+          //navigate user to 'Menu' page
+          history.push("/menu");
+        } else {
+          //if isAuthenticated===false =>display error message from server
+          // setMessage(message);
+          setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
+        }
+        //clear state
+        // setUser({ username: "", password: "" });
+      });
+    } else {
+      setMessage({ msgBody: "Please enter your username and password!", msgError: true });
+    }
   };
 
   const getTimeOfDay = () => {

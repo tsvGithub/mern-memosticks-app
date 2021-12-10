@@ -214,15 +214,16 @@ a:active {
   -moz-border-radius: 0.25rem;
   -ms-border-radius: 0.25rem;
   -o-border-radius: 0.25rem;
-  /* color: inherit; */
 }
+.container > form > input {
+  width: 100%;
+  box-shadow: none;
+}
+
 .home > button {
   width: 45%;
 }
 
-/* .embed-container > button {
-   margin: 0px 12%; 
-} */
 .container > button:hover,
 .embed-container > button:hover {
   background-color: var(--LT-Light-Grayish-Blue);
@@ -348,12 +349,13 @@ li {
   color: var(--DT-Very-Dark-Desaturated-);
 }
 
-input[type="text"] {
-  /* color: inherit; */
-  /* padding-left: 0; */
+input[type="text"],
+input[type="password"] {
   border: none;
   box-shadow: none;
   cursor: auto;
+  font-style: italic;
+  box-shadow: none;
 }
 /* form {
   background-color: var(--DT-Very-Dark-Desaturated-Blue);

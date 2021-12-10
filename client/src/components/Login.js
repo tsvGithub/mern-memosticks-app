@@ -2,7 +2,7 @@ import React from "react";
 //global State
 import { useGlobalContext } from "../context";
 //Message displays messages from the Server
-import Message from "../components/Message";
+import Message from "./Message";
 
 //IX (VIII Home.js; X -> Register.js)
 //'props' for 'history' => navigate user to 'Menu' page
@@ -52,17 +52,16 @@ const Login = (props) => {
             />
 
             {/* <label htmlFor="password">Password:</label> */}
-            <input type="password" name="password" onChange={changeForm} placeholder="Enter password" />
+            <input type="password" name="password" onChange={changeForm} placeholder="Enter password" required />
 
             <button className="submit" type="submit">
               Log in
             </button>
           </form>
-
-          {/*if message !==null display message from server OR do nothing   */}
-          {message ? <Message message={message} /> : null}
         </div>
       </section>
+      {/*if message !==null display message from server OR do nothing   */}
+      {message ? <Message message={message} /> : null}
     </main>
   );
 };
