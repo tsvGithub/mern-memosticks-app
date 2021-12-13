@@ -5,9 +5,7 @@ import { useGlobalContext } from "../context";
 import Message from "./Message";
 
 //IX (VIII Home.js; X -> Register.js)
-//'props' for 'history' => navigate user to 'Menu' page
-// props.history.push("/menu");
-const Login = (props) => {
+const Login = () => {
   //global context
   const {
     mood,

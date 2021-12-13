@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import axios from "axios";
@@ -54,7 +54,9 @@ const AppProvider = ({ children }) => {
   //once we get the data => isLoaded===true
   const [isLoaded, setIsLoaded] = useState(false);
   const [message, setMessage] = useState("");
-
+  //'useRef' creates an istance var because of using
+  //setTimeout method
+  let timerID = useRef(null);
   //-------------------------
   //THEME (2)
   const [mood, setMood] = useState(getStorageTheme());
@@ -128,13 +130,19 @@ const AppProvider = ({ children }) => {
   const changeForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+  const resetForm = () => {
+    setUser({
+      username: "",
+      password: "",
+      role: "",
+    });
+  };
   const submitLoginForm = (e) => {
     e.preventDefault();
     if (user.username && user.password) {
       //fetch ('/login') with user from form
       AuthService.login(user).then((data) => {
-        console.log(data);
+        // console.log(data);
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
         //if isAuthenticated===true
@@ -142,20 +150,64 @@ const AppProvider = ({ children }) => {
           //update global state of user => (updated user)
           setUser(user);
           setUsername(user.username);
-          console.log(`context submitLoginForm username: ${user.username}`);
+          // console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
           getTimeOfDay();
-
+          //?? clean form
+          resetForm();
           //navigate user to 'Menu' page
           history.push("/menu");
         } else {
           //if isAuthenticated===false =>display error message from server
-          // setMessage(message);
           setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
         }
         //clear state
         // setUser({ username: "", password: "" });
+      });
+    } else {
+      setMessage({ msgBody: "Please enter your username and password!", msgError: true });
+    }
+  };
+  //cleans up the setTimeout
+  useEffect(() => {
+    //===component did unmout
+    return () => {
+      clearTimeout(timerID);
+    };
+  }, []);
+
+  const changeRegisterForm = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value, role: "user" });
+  };
+
+  const submitRegisterForm = (e) => {
+    e.preventDefault();
+    if (user.username && user.password) {
+      console.log(user);
+
+      //fetch ('/login') with user from form
+      AuthService.register(user).then((data) => {
+        // console.log(data);
+        //pull {stuff} from response parsed data
+        const { message } = data;
+        //update message from useState
+        setMessage(message);
+        //clean form
+        resetForm();
+        //if there is no error because user successfully
+        //created account => navigate user to Login page
+        if (!message.msgError) {
+          //set timer to show to user success message for 2 sec
+          timerID = setTimeout(() => {
+            //navigate user to Login page
+            history.push("/login");
+          }, 2000);
+        } else {
+          console.log(message.msgError);
+          //if error =>display error message from server
+          setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
+        }
       });
     } else {
       setMessage({ msgBody: "Please enter your username and password!", msgError: true });
@@ -233,7 +285,10 @@ const AppProvider = ({ children }) => {
             logoutHandler,
             logout,
             changeForm,
+            resetForm,
             submitLoginForm,
+            changeRegisterForm,
+            submitRegisterForm,
             message,
             setMessage,
             //-------------
