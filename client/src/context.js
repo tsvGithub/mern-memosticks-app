@@ -184,15 +184,17 @@ const AppProvider = ({ children }) => {
   const submitRegisterForm = (e) => {
     e.preventDefault();
     if (user.username && user.password) {
-      console.log(user);
+      // console.log(user);
 
       //fetch ('/login') with user from form
       AuthService.register(user).then((data) => {
-        // console.log(data);
         //pull {stuff} from response parsed data
         const { message } = data;
+        // console.log(message);
+
         //update message from useState
         setMessage(message);
+
         //clean form
         resetForm();
         //if there is no error because user successfully
@@ -204,9 +206,11 @@ const AppProvider = ({ children }) => {
             history.push("/login");
           }, 2000);
         } else {
-          console.log(message.msgError);
+          // console.log(`RegForm msgError ${message.msgError}`);
+          // console.log(`RegForm msgBody ${message.msgBody}`);
           //if error =>display error message from server
-          setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
+          setMessage({ msgBody: message.msgBody, msgError: true });
+          // setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
         }
       });
     } else {
@@ -220,14 +224,14 @@ const AppProvider = ({ children }) => {
       (hour >= 5 && hour < 12 && "Morning") || (hour >= 12 && hour < 19 && "Afternoon") || (hour >= 19 && "Evening")
     }`;
     setTimeOfDay(timeOfDay);
-    const wish = username ? `Good ${timeOfDay}, ${username}!` : `Good ${timeOfDay}, Guest`;
+    const wish = username ? `Good ${timeOfDay}, ${username.toUpperCase()}!` : `Good ${timeOfDay}, Guest`;
 
     setWish(wish);
   };
 
   useEffect(() => {
     getTimeOfDay();
-  }, [submitLoginForm]);
+  }, [submitLoginForm, submitRegisterForm]);
   //----------------------------------------------------------------
   //get All videos
   const getVideos = async () => {

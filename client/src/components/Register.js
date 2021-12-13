@@ -1,31 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Message from "./Message";
 //global context
 import { useGlobalContext } from "../context";
-//fetch
-import AuthService from "../Services/AuthService";
 
 const Register = () => {
-  const {
-    mood,
-    switchMood,
-    moon,
-    sun,
-    user,
-    setUser,
-    message,
-    setMessage,
-    changeRegisterForm,
-    resetForm,
-    submitRegisterForm,
-  } = useGlobalContext();
-  //
+  const { mood, switchMood, moon, sun, logout, logoutHandler, message, changeRegisterForm, submitRegisterForm } =
+    useGlobalContext();
 
   return (
     <main className={`wrapper wrapper-${mood}`}>
       <section className={`outer outer-${mood}`}>
+        {/*!!!========================LOGOUT=========================== */}
+        <button className={`logout switcher switcher-${mood}`}>
+          <Link to="/">
+            <img className="sw" src={logout} alt="logout" title="Logout" />
+          </Link>
+        </button>
+
         {/*========================THEME=========================== */}
-        <button className={`login-switcher switcher switcher-${mood}`} onClick={switchMood}>
+        <button className={`switcher switcher-${mood}`} onClick={switchMood}>
           <img className="sw" src={mood === "dark" ? sun : moon} alt="mood" title="Switch mood" />
         </button>
 

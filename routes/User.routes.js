@@ -59,6 +59,7 @@ user.post("/register", (req, res) => {
       res
         .status(400)
         .json({ message: { msgBody: "Username already exist, do you want Login instead?", msgError: true } });
+      // console.log(message.msgBody);
     } else {
       //if no user with that name:
       //create new User with username, password and role

@@ -11,7 +11,7 @@ export default {
   //1a REGISTER
   //'user'===username, password, role
   register: (user) => {
-    console.log(user);
+    // console.log(user);
     return (
       //endpoint ("/user/register"
       fetch("/user/register", {
@@ -26,6 +26,7 @@ export default {
         //promise returns a response
         .then((res) => res.json())
         //get data that parsed
+        // .then((data) => console.log(`AuthService response data: ${data}`))
         .then((data) => data)
     );
   },
