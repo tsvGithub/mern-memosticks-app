@@ -80,7 +80,7 @@ const AppProvider = ({ children }) => {
   //=================================
   //Authentification (3)
   //to persist authentication === сохранить аутентификацию
-  //once user is logeed in we set a 'state' to let App
+  //once user is logged in we set a 'state' to let App
   //know that user has been authenticated.
   //When you close React app that state is gone.
   //So isAuthenticated syncs BE & FE together and
@@ -150,14 +150,17 @@ const AppProvider = ({ children }) => {
           //update global state of user => (updated user)
           setUser(user);
           setUsername(user.username);
-          // console.log(`context submitLoginForm username: ${user.username}`);
+          console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
-          getTimeOfDay();
+          getTimeOfDay(user.username);
           //?? clean form
           resetForm();
-          //navigate user to 'Menu' page
-          history.push("/menu");
+          user.role === "admin"
+            ? history.push("/")
+            : //navigate user to 'Menu' page
+              history.push("/menu");
+          // history.push("/");
         } else {
           //if isAuthenticated===false =>display error message from server
           setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
@@ -206,8 +209,6 @@ const AppProvider = ({ children }) => {
             history.push("/login");
           }, 2000);
         } else {
-          // console.log(`RegForm msgError ${message.msgError}`);
-          // console.log(`RegForm msgBody ${message.msgBody}`);
           //if error =>display error message from server
           setMessage({ msgBody: message.msgBody, msgError: true });
           // setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
@@ -218,7 +219,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const getTimeOfDay = () => {
+  const getTimeOfDay = (username) => {
     let hour = new Date().getHours();
     const timeOfDay = `${
       (hour >= 5 && hour < 12 && "Morning") || (hour >= 12 && hour < 19 && "Afternoon") || (hour >= 19 && "Evening")
@@ -229,9 +230,9 @@ const AppProvider = ({ children }) => {
     setWish(wish);
   };
 
-  useEffect(() => {
-    getTimeOfDay();
-  }, [submitLoginForm, submitRegisterForm]);
+  // useEffect(() => {
+  //   getTimeOfDay();
+  // }, [submitLoginForm, submitRegisterForm]);
   //----------------------------------------------------------------
   //get All videos
   const getVideos = async () => {

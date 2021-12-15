@@ -30,7 +30,7 @@ const Dashboard = () => {
           {/* <div className="outer embed-container"> */}
           <iframe src={video.url} allowFullScreen title="YouTube video player"></iframe>
           <button>
-            <Link to="/">Back Home</Link>
+            <Link to="/menu">Back Home</Link>
           </button>
         </div>
       </section>

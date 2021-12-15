@@ -28,6 +28,7 @@ const Home = () => {
   };
 
   const authenticated = () => {
+    console.log(user.role);
     return (
       <>
         {/* two types of authenticated users:

@@ -5,7 +5,7 @@ import Message from "./Message";
 import { useGlobalContext } from "../context";
 
 const Register = () => {
-  const { mood, switchMood, moon, sun, logout, logoutHandler, message, changeRegisterForm, submitRegisterForm } =
+  const { mood, switchMood, moon, sun, logout, user, message, changeRegisterForm, submitRegisterForm } =
     useGlobalContext();
 
   return (
@@ -31,6 +31,7 @@ const Register = () => {
             <input
               type="text"
               name="username"
+              // value={user.username}
               onChange={changeRegisterForm}
               placeholder="Enter username"
               required
@@ -41,6 +42,7 @@ const Register = () => {
             <input
               type="password"
               name="password"
+              // value={user.password}
               onChange={changeRegisterForm}
               placeholder="Enter password"
               required
