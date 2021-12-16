@@ -97,6 +97,7 @@ const AppProvider = ({ children }) => {
         //will be set to the authenticated user.
         //Set 'user' state
         setUser(data.user);
+        console.log(`isAuthenticated data.user: ${data.user}`);
         //-----------------------
         // (BE 4b 'routes'->login)//if user is logged in
         //isAuthenticated() added by Passport by default
@@ -106,6 +107,7 @@ const AppProvider = ({ children }) => {
         ////send back user with username and role
         //   user: { username, role },}------------------------
         setIsAuthenticated(data.isAuthenticated);
+        console.log(isAuthenticated);
         //after getting data
         setIsLoaded(false);
       });
@@ -113,8 +115,17 @@ const AppProvider = ({ children }) => {
   //-------------------
   //Authentification (4)
   const logoutHandler = () => {
+    console.log("Logout!");
+    console.log(user);
+    if (!user.username) {
+      history.push("/");
+    }
+
     //use 'AuthService' func 'logout' (1c)
     AuthService.logout().then((data) => {
+      if (!data.success) {
+        history.push("/");
+      }
       //if successfully logged out or not
       if (data.success) {
         //set 'user'(username, parrsord, role) to empty string ("")
@@ -156,6 +167,7 @@ const AppProvider = ({ children }) => {
           getTimeOfDay(user.username);
           //?? clean form
           resetForm();
+
           user.role === "admin"
             ? history.push("/")
             : //navigate user to 'Menu' page

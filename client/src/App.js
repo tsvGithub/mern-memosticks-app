@@ -26,15 +26,13 @@ function App({ history }) {
 
         {/* Private Routes: ------------------------- */}
         {/* prop roles is [array of the roles that are able to acces to Menu, Dashboard (videos) & Admin component] */}
-        <PrivateRoute path="/menu" roles={["user, admin"]}>
-          <Menu />
-        </PrivateRoute>
-        <PrivateRoute path="/dashboard" roles={["user, admin"]}>
-          <Dashboard />
-        </PrivateRoute>
-        <PrivateRoute path="/admin" roles={["admin"]}>
+        <PrivateRoute path="/menu" roles={["user, admin"]} component={Menu} />
+        <PrivateRoute path="/dashboard" roles={["user, admin"]} component={Dashboard} />
+        <PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
+        {/*this doesn't work :-( */}
+        {/* <PrivateRoute path="/admin" roles={["admin"]}>
           <Admin />
-        </PrivateRoute>
+        </PrivateRoute> */}
         {/* Route without except: ------------------------- */}
         <Route exact path="/">
           <Home />

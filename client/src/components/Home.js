@@ -33,18 +33,18 @@ const Home = () => {
       <>
         {/* two types of authenticated users:
         'admin' or regular 'user' */}
-        {user.role === "admin" ? (
-          <>
-            <button>
-              <Link to="/admin">Admin</Link>
-            </button>
-            <button>
-              <Link to="/menu">Menu</Link>
-            </button>
-          </>
+        {/* {user.role === "admin" ? ( */}
+        {/* <> */}
+        <button>
+          <Link to="/admin">Admin</Link>
+        </button>
+        <button>
+          <Link to="/menu">Menu</Link>
+        </button>
+        {/* </>
         ) : (
           <Menu />
-        )}
+        // )} */}
       </>
     );
   };

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-//
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 //global state
@@ -8,10 +7,11 @@ import { useGlobalContext } from "../context";
 //to protect Components(Videos & Admin) that user
 //need to be logged in for
 //-------------------------
-//pass in props {stuff: Component, roles and other rest props}
+//pass in props {stuff: Component, array roles and other rest props}
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
   //pull out from global state
   const { isAuthenticated, user } = useGlobalContext();
+  console.log(isAuthenticated);
   return (
     // pass as props {spred ...rest} in Route component
     <Route
@@ -20,13 +20,13 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
       render={(props) => {
         //check global state for isAuthenticated
         //------------------------
-        //if not authenticated Redirect to Login
+        //if not authenticated -> Redirect to Login
         //from:props.location => where this user is coming from
         if (!isAuthenticated) {
           return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />;
         }
         //-------------------
-        //user is authenticated
+        //user is authenticated:
         //check if the user has a correct role
         //This role comes from App.js:
         //<PrivateRoute path="/dashboard" roles={["user", "admin"]} component={Dashboard} />
