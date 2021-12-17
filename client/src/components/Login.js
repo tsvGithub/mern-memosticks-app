@@ -8,9 +8,9 @@ import Message from "./Message";
 //IX (VIII Home.js; X -> Register.js)
 const Login = () => {
   //global context
-  const { mood, switchMood, moon, sun, logout, logoutHandler, changeForm, submitLoginForm, message } =
-    useGlobalContext();
-
+  const { mood, switchMood, moon, sun, logout, user, changeForm, submitLoginForm, message } = useGlobalContext();
+  // console.log(user);
+  // const { username, password } = user;
   //3
   return (
     <main className={`wrapper wrapper-${mood}`}>
@@ -34,6 +34,7 @@ const Login = () => {
             <input
               type="text"
               name="username"
+              // value={user.username}
               onChange={changeForm}
               placeholder="Enter username"
               required
@@ -41,7 +42,14 @@ const Login = () => {
             />
 
             {/* <label htmlFor="password">Password:</label> */}
-            <input type="password" name="password" onChange={changeForm} placeholder="Enter password" required />
+            <input
+              type="password"
+              // value={user.password}
+              name="password"
+              onChange={changeForm}
+              placeholder="Enter password"
+              required
+            />
 
             <button className="submit" type="submit">
               Log in

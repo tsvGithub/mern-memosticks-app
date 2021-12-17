@@ -26,12 +26,12 @@ const Register = () => {
         <div className={`container container-${mood}`}>
           {/*========================Register Form======================= */}
           <form className={`container container-${mood}`} onSubmit={submitRegisterForm}>
-            <h3>Please sign in</h3>
+            <h3>Please sign up</h3>
             {/* <label htmlFor="username">Username:</label> */}
             <input
               type="text"
               name="username"
-              // value={user.username}
+              value={user.username}
               onChange={changeRegisterForm}
               placeholder="Enter username"
               required
@@ -42,7 +42,7 @@ const Register = () => {
             <input
               type="password"
               name="password"
-              // value={user.password}
+              value={user.password}
               onChange={changeRegisterForm}
               placeholder="Enter password"
               required

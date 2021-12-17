@@ -7,7 +7,7 @@ import { useGlobalContext } from "../context";
 // // import logout from "../assets/images/logout_white_18dp.svg";
 // import logout from "../assets/images/logout_white_24dp.svg";
 
-const Menu = () => {
+const Menu = (props) => {
   const { mood, moon, sun, logout, switchMood, logoutHandler, times, timeOfDay, wish, user, chooseTimeInterval } =
     useGlobalContext();
   // console.log(mood);

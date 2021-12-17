@@ -18,11 +18,13 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
       {...rest}
       /*dynamic render: */
       render={(props) => {
+        // console.log(props);
         //check global state for isAuthenticated
         //------------------------
         //if not authenticated -> Redirect to Login
         //from:props.location => where this user is coming from
         if (!isAuthenticated) {
+          console.log("Not authenticated");
           return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />;
         }
         //-------------------
@@ -33,12 +35,25 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
         //<PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
         //if not role='admin' nor "user" => redirect to Home
         //user.role === global state
-        if (!roles.includes(user.role)) {
+        // if (!roles.includes(user.role)) {
+        // if (!roles.includes("admin" || "user")) {
+        if (!user.role) {
+          // console.log(roles.includes("admin" || "user"));
+          // if (user.role === "") {
+          // if (user.role !== "admin" || user.role !== "user") {
+          console.log(user.role);
+          // roles.map((role) => console.log(role));
+          console.log("No permissions granted");
+
           return <Redirect to={{ pathname: "/", state: { from: props.location } }} />;
         }
         //-----------------------------
         //if user is authenticated & has correct role:
         //return Component that was being passed in
+        console.log("return Component with ...props");
+        console.log(roles.includes(user.role));
+        // console.log(Component);
+        // console.log(props);
         return <Component {...props} />;
       }}
     />

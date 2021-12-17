@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import Menu from "./Menu";
 //logout
@@ -11,7 +11,7 @@ import { useGlobalContext } from "../context";
 // import sun from "./../assets/images/icon-sun.svg";
 
 //VIII (VII -> App.js;  IX -> Login.js)
-const Home = () => {
+const Home = (props) => {
   const { mood, switchMood, moon, sun, logout, logoutHandler, isAuthenticated, setIsAuthenticated, user, setUser } =
     useGlobalContext();
   const unAuthenticated = () => {
@@ -33,18 +33,23 @@ const Home = () => {
       <>
         {/* two types of authenticated users:
         'admin' or regular 'user' */}
-        {/* {user.role === "admin" ? ( */}
-        {/* <> */}
-        <button>
-          <Link to="/admin">Admin</Link>
-        </button>
-        <button>
-          <Link to="/menu">Menu</Link>
-        </button>
-        {/* </>
+        {user.role === "admin" ? (
+          <>
+            <button>
+              <Link to="/admin">Admin</Link>
+            </button>
+            <button>
+              <Link to="/menu">Menu</Link>
+            </button>
+          </>
         ) : (
-          <Menu />
-        // )} */}
+          // <Menu />
+          <>
+            <button>
+              <Link to="/menu">Menu</Link>
+            </button>
+          </>
+        )}
       </>
     );
   };

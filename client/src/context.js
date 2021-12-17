@@ -29,7 +29,7 @@ const getStorageTheme = () => {
 
 const AppProvider = ({ children }) => {
   let history = useHistory();
-  // console.log(`history.length: ${history.length}`);
+  console.log(`history.length: ${history.length}`);
 
   //State:
   //exercises length:
@@ -97,7 +97,7 @@ const AppProvider = ({ children }) => {
         //will be set to the authenticated user.
         //Set 'user' state
         setUser(data.user);
-        console.log(`isAuthenticated data.user: ${data.user}`);
+        // console.log(`isAuthenticated data.user: ${data.user}`);
         //-----------------------
         // (BE 4b 'routes'->login)//if user is logged in
         //isAuthenticated() added by Passport by default
@@ -107,7 +107,7 @@ const AppProvider = ({ children }) => {
         ////send back user with username and role
         //   user: { username, role },}------------------------
         setIsAuthenticated(data.isAuthenticated);
-        console.log(isAuthenticated);
+        // console.log(isAuthenticated);
         //after getting data
         setIsLoaded(false);
       });
@@ -115,8 +115,8 @@ const AppProvider = ({ children }) => {
   //-------------------
   //Authentification (4)
   const logoutHandler = () => {
-    console.log("Logout!");
-    console.log(user);
+    // console.log("Logout!");
+    // console.log(user);
     if (!user.username) {
       history.push("/");
     }
@@ -140,6 +140,7 @@ const AppProvider = ({ children }) => {
   //Form
   const changeForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    // console.log(e.target.name, e.target.value, user);
   };
   const resetForm = () => {
     setUser({
@@ -147,15 +148,18 @@ const AppProvider = ({ children }) => {
       password: "",
       role: "",
     });
+    // console.log(user.username, user.password);
   };
   const submitLoginForm = (e) => {
     e.preventDefault();
     if (user.username && user.password) {
+      console.log(user.username, user.password);
       //fetch ('/login') with user from form
       AuthService.login(user).then((data) => {
         // console.log(data);
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
+        console.log(user);
         //if isAuthenticated===true
         if (isAuthenticated) {
           //update global state of user => (updated user)
@@ -164,21 +168,35 @@ const AppProvider = ({ children }) => {
           console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
+          console.log(isAuthenticated);
           getTimeOfDay(user.username);
-          //?? clean form
-          resetForm();
+          // clean form
+          // resetForm();
+          console.log(user.role);
+          history.push("/");
 
-          user.role === "admin"
-            ? history.push("/")
-            : //navigate user to 'Menu' page
-              history.push("/menu");
-          // history.push("/");
+          // user.role === "admin"
+          //   ? history.push("/admin")
+          //   : //
+          //     //navigate user to 'Menu' page
+          //     history.push("/menu");
+          // // history.push("/");
         } else {
           //if isAuthenticated===false =>display error message from server
           setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
+          // clean form
+          // resetForm();
+          // setUser({ username: "", password: "" });
+          // // console.log(user);
+          // timerID = setTimeout(() => {
+          //   //navigate user to Login page
+          //   history.push("/login");
+          //   console.log(message); //undefined
+          // }, 2000);
         }
         //clear state
         // setUser({ username: "", password: "" });
+        // resetForm();
       });
     } else {
       setMessage({ msgBody: "Please enter your username and password!", msgError: true });
