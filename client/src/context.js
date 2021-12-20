@@ -193,6 +193,9 @@ const AppProvider = ({ children }) => {
           //   history.push("/login");
           //   console.log(message); //undefined
           // }, 2000);
+          timerID = setTimeout(() => {
+            setMessage({ msgBody: "", msgError: false });
+          }, 4000);
         }
         //clear state
         // setUser({ username: "", password: "" });
@@ -200,6 +203,9 @@ const AppProvider = ({ children }) => {
       });
     } else {
       setMessage({ msgBody: "Please enter your username and password!", msgError: true });
+      timerID = setTimeout(() => {
+        setMessage({ msgBody: "", msgError: false });
+      }, 4000);
     }
   };
   //cleans up the setTimeout
@@ -242,6 +248,10 @@ const AppProvider = ({ children }) => {
           //if error =>display error message from server
           setMessage({ msgBody: message.msgBody, msgError: true });
           // setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
+          // console.log(message);
+          timerID = setTimeout(() => {
+            setMessage({ msgBody: "", msgError: false });
+          }, 4000);
         }
       });
     } else {

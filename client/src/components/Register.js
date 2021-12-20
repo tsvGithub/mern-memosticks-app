@@ -8,6 +8,8 @@ const Register = () => {
   const { mood, switchMood, moon, sun, logout, user, message, changeRegisterForm, submitRegisterForm } =
     useGlobalContext();
 
+  // console.log(user.username, user.password);
+
   return (
     <main className={`wrapper wrapper-${mood}`}>
       <section className={`outer outer-${mood}`}>
