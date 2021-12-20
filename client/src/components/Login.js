@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 //global State
 import { useGlobalContext } from "../context";
@@ -11,6 +11,9 @@ const Login = () => {
   const { mood, switchMood, moon, sun, logout, user, changeForm, submitLoginForm, message } = useGlobalContext();
   // console.log(user);
   // const { username, password } = user;
+  // const [username, setUsername] = useState("")
+  // const [password, setPassword] = useState("")
+
   //3
   return (
     <main className={`wrapper wrapper-${mood}`}>
@@ -34,7 +37,7 @@ const Login = () => {
             <input
               type="text"
               name="username"
-              // value={user.username}
+              value={user.username}
               onChange={changeForm}
               placeholder="Enter username"
               required
@@ -44,7 +47,7 @@ const Login = () => {
             {/* <label htmlFor="password">Password:</label> */}
             <input
               type="password"
-              // value={user.password}
+              value={user.password}
               name="password"
               onChange={changeForm}
               placeholder="Enter password"

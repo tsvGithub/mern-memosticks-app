@@ -154,11 +154,13 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     if (user.username && user.password) {
       console.log(user.username, user.password);
+
       //fetch ('/login') with user from form
       AuthService.login(user).then((data) => {
         // console.log(data);
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
+        //from BE username + role
         console.log(user);
         //if isAuthenticated===true
         if (isAuthenticated) {
@@ -172,31 +174,32 @@ const AppProvider = ({ children }) => {
           getTimeOfDay(user.username);
           // clean form
           // resetForm();
-          console.log(user.role);
           history.push("/");
+
+          // setUser({ username: "", password: "", role: "" });
+          console.log(user.role);
 
           // user.role === "admin"
           //   ? history.push("/admin")
-          //   : //
+          //   :
           //     //navigate user to 'Menu' page
           //     history.push("/menu");
-          // // history.push("/");
         } else {
           //if isAuthenticated===false =>display error message from server
           setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
           // clean form
           // resetForm();
-          // setUser({ username: "", password: "" });
+          // setUser({ username: "", password: "", role: "" });
           // // console.log(user);
-          // timerID = setTimeout(() => {
-          //   //navigate user to Login page
-          //   history.push("/login");
-          //   console.log(message); //undefined
-          // }, 2000);
           timerID = setTimeout(() => {
             setMessage({ msgBody: "", msgError: false });
+            // setUser({ username: "", password: "", role: "" });
+            // clean form
+            resetForm();
           }, 4000);
+          console.log(user);
         }
+
         //clear state
         // setUser({ username: "", password: "" });
         // resetForm();
@@ -256,6 +259,9 @@ const AppProvider = ({ children }) => {
       });
     } else {
       setMessage({ msgBody: "Please enter your username and password!", msgError: true });
+      timerID = setTimeout(() => {
+        setMessage({ msgBody: "", msgError: false });
+      }, 4000);
     }
   };
 

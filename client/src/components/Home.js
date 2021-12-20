@@ -28,7 +28,7 @@ const Home = (props) => {
   };
 
   const authenticated = () => {
-    console.log(user.role);
+    console.log(user);
     return (
       <>
         {/* two types of authenticated users:
