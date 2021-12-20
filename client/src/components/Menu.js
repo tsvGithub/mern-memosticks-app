@@ -13,6 +13,7 @@ const Menu = (props) => {
   // console.log(mood);
   // const { username } = user;
   // console.log(`Menu Component 'username' ${username}`);
+  console.log(`Menu Component 'user.role' ${user.role}`);
 
   return (
     <main className={`wrapper wrapper-${mood}`}>
@@ -39,7 +40,17 @@ const Menu = (props) => {
             );
           })}
         </div>
+        {/* {user.role === "admin" && (
+          <button className="admin">
+            <Link to="/">Back Home</Link>
+          </button>
+        )} */}
       </section>
+      {user.role === "admin" && (
+        <button className="admin">
+          <Link to="/">Back Home</Link>
+        </button>
+      )}
     </main>
   );
 };
