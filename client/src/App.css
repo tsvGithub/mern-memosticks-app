@@ -195,15 +195,17 @@ a:active {
 
   align-self: self-start;
 }
-/*---09/12*/
 
 .home {
   padding-bottom: 0;
-  /*----09/12*/
   display: flex;
   justify-content: center;
+  gap: 20px;
 }
-/* .admin, */
+.home > button > a {
+  display: block;
+  /* background: orange; */
+}
 .container > button,
 .embed-container > button,
 .submit,
@@ -231,6 +233,9 @@ a:active {
 
 .home > button {
   width: 45%;
+}
+.home > button.entrance {
+  width: 75%;
 }
 
 .container > button:hover,

@@ -17,10 +17,10 @@ const Home = (props) => {
   const unAuthenticated = () => {
     return (
       <>
-        <button>
+        {/* <button>
           <Link to="/register">Register</Link>
-        </button>
-        <button>
+        </button> */}
+        <button className="entrance">
           <Link to="/login">Login</Link>
         </button>
       </>
@@ -33,23 +33,29 @@ const Home = (props) => {
       <>
         {/* two types of authenticated users:
         'admin' or regular 'user' */}
-        {user.role === "admin" ? (
-          <>
-            <button>
-              <Link to="/admin">Admin</Link>
-            </button>
-            <button>
-              <Link to="/menu">Menu</Link>
-            </button>
-          </>
-        ) : (
-          // <Menu />
-          <>
-            <button>
-              <Link to="/menu">Menu</Link>
-            </button>
-          </>
-        )}
+        {
+          user.role === "admin" && (
+            <>
+              <button>
+                <Link to="/admin">Admin</Link>
+              </button>
+              <button>
+                <Link to="/register">Register</Link>
+              </button>
+              <button>
+                <Link to="/menu">Menu</Link>
+              </button>
+            </>
+          )
+          //  : (
+          //   // <Menu />
+          //   // <>
+          //   //   <button>
+          //   //     <Link to="/menu">Menu</Link>
+          //   //   </button>
+          //   // </>
+          // )
+        }
       </>
     );
   };

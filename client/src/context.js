@@ -33,7 +33,7 @@ const AppProvider = ({ children }) => {
 
   //State:
   //exercises length:
-  const [times, setTimes] = useState([5, 10, 15]);
+  const [times, setTimes] = useState([2, 3, 5, 10, "pranayama", "meditation"]);
   const [time, setTime] = useState(null);
   //
   const [videos, setVideos] = useState([]);
@@ -46,7 +46,8 @@ const AppProvider = ({ children }) => {
   //--------------------------
   //Authentification (2)
   //'user'===user that is logged in
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [username, setUsername] = useState("");
   //isAuthenticated===if this user is authenticated or not
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -161,48 +162,34 @@ const AppProvider = ({ children }) => {
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
         //from BE username + role
-        console.log(user);
+        // console.log(user);
         //if isAuthenticated===true
         if (isAuthenticated) {
           //update global state of user => (updated user)
           setUser(user);
           setUsername(user.username);
-          console.log(`context submitLoginForm username: ${user.username}`);
+          // console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
           console.log(isAuthenticated);
           getTimeOfDay(user.username);
-          // clean form
-          // resetForm();
-          history.push("/");
 
-          // setUser({ username: "", password: "", role: "" });
           console.log(user.role);
 
-          // user.role === "admin"
-          //   ? history.push("/admin")
-          //   :
-          //     //navigate user to 'Menu' page
-          //     history.push("/menu");
+          user.role === "admin" && history.push("/");
+          user.role === "user" && history.push("/menu");
+          // history.push("/");
         } else {
           //if isAuthenticated===false =>display error message from server
           setMessage({ msgBody: "Incorrect username or password, please try again.", msgError: true });
-          // clean form
-          // resetForm();
-          // setUser({ username: "", password: "", role: "" });
           // // console.log(user);
           timerID = setTimeout(() => {
             setMessage({ msgBody: "", msgError: false });
-            // setUser({ username: "", password: "", role: "" });
             // clean form
             resetForm();
           }, 4000);
           console.log(user);
         }
-
-        //clear state
-        // setUser({ username: "", password: "" });
-        // resetForm();
       });
     } else {
       setMessage({ msgBody: "Please enter your username and password!", msgError: true });
@@ -274,6 +261,7 @@ const AppProvider = ({ children }) => {
     const wish = username ? `Good ${timeOfDay}, ${username.toUpperCase()}!` : `Good ${timeOfDay}, Guest`;
 
     setWish(wish);
+    console.log(timeOfDay);
   };
 
   // useEffect(() => {

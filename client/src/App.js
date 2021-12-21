@@ -20,15 +20,16 @@ function App({ history }) {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/register">
+        {/* <Route path="/register">
           <Register />
-        </Route>
+        </Route> */}
 
         {/* Private Routes: ------------------------- */}
         {/* prop roles is [array of the roles that are able to acces to Menu, Dashboard (videos) & Admin component] */}
         <PrivateRoute path="/menu" roles={["user, admin"]} component={Menu} />
         <PrivateRoute path="/dashboard" roles={["user, admin"]} component={Dashboard} />
         <PrivateRoute path="/admin" roles={["admin"]} component={Admin} />
+        <PrivateRoute path="/register" roles={["admin"]} component={Register} />
         {/*this doesn't work :-( */}
         {/* <PrivateRoute path="/admin" roles={["admin"]}>
           <Admin />
