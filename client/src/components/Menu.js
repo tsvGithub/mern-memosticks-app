@@ -30,6 +30,7 @@ const Menu = (props) => {
   let filters = {
     Morning: [5, 10],
     Afternoon: [2, 3],
+    // Afternoon: [5, 10, "pranayama", "meditation"],
     Evening: [5, 10, "pranayama", "meditation"],
   };
   let filtersKeys = Object.keys(filters);
@@ -43,9 +44,19 @@ const Menu = (props) => {
   // let upr = timeOfDay;
   // const exercises = vremjaSutok.map((time) => {
   const exercises = filters[filtersKey].map((time) => {
+    console.log(typeof time === "string" ? time : `${time} minutes`);
+
+    // var arr = [7, "c1", "d2", 18, "dr", 21, 2];
+    // var numbers = arr.filter(numbersOnly);
+    // function numbersOnly(value) {
+    //   //console.log (value);  // it will show all the values.
+    //   if (typeof value === "number") {
+    //     return value;
+    //   }
+    // }
     return (
       <button onClick={() => chooseTimeInterval(time)} key={time}>
-        <Link to="/dashboard"> {time} minutes</Link>
+        <Link to="/dashboard">{typeof time === "string" ? time : `${time} minutes`}</Link>
       </button>
     );
   });
