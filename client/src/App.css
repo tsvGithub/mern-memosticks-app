@@ -237,6 +237,11 @@ a:active {
 .home > button.entrance {
   width: 75%;
 }
+.test {
+  background-color: #813baa;
+  width: 100%;
+  height: fit-content;
+}
 
 .container > button:hover,
 .embed-container > button:hover {

@@ -29,7 +29,7 @@ const getStorageTheme = () => {
 
 const AppProvider = ({ children }) => {
   let history = useHistory();
-  console.log(`history.length: ${history.length}`);
+  // console.log(`history.length: ${history.length}`);
 
   //State:
   //exercises length:
@@ -205,11 +205,9 @@ const AppProvider = ({ children }) => {
       clearTimeout(timerID);
     };
   }, []);
-
   const changeRegisterForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value, role: "user" });
   };
-
   const submitRegisterForm = (e) => {
     e.preventDefault();
     if (user.username && user.password) {
@@ -251,7 +249,6 @@ const AppProvider = ({ children }) => {
       }, 4000);
     }
   };
-
   const getTimeOfDay = (username) => {
     let hour = new Date().getHours();
     const timeOfDay = `${
