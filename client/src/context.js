@@ -282,13 +282,16 @@ const AppProvider = ({ children }) => {
   //-----------------------------------------------------------------
   //Get One Video:
   const getOneVideo = async () => {
-    // console.log(`videos`, videos);
-    // console.log(`time`, time);
-    // console.log(`timeOfDay`, timeOfDay);
+    console.log(`videos`, videos);
+    console.log(`time`, time);
+    console.log(`timeOfDay`, timeOfDay);
     let video = videos.filter(
       (video) =>
         //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
-        video.timesOfDay === timeOfDay.trim() && video.length === time
+        //Works:
+        // video.timesOfDay === timeOfDay.trim() && video.length === time
+        //!!!!????
+        video.timesOfDay === timeOfDay.trim() && (video.length === time || video.type === ("pranayama" || "meditation"))
     );
     // console.log(`...video`, ...video);
     setVideo(...video);

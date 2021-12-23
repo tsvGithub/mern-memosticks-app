@@ -30,7 +30,6 @@ const Menu = (props) => {
   let filters = {
     Morning: [5, 10],
     Afternoon: [2, 3],
-    // Afternoon: [5, 10, "pranayama", "meditation"],
     Evening: [5, 10, "pranayama", "meditation"],
   };
   let filtersKeys = Object.keys(filters);
