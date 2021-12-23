@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
 const Dashboard = () => {
-  const { time, video, mood } = useGlobalContext();
-  console.log(`video`, video);
+  const { time, video, videos, mood } = useGlobalContext();
+  // console.log(`video`, video);
+
   //-------------
   // const allVideos = videos.map((video) => {
+  //   console.log(video.title, video._id, video.url, video.length, video.type);
   //   return (
   //     <section className="container" key={video._id}>
   //       <h3>{video.title}</h3>
@@ -33,6 +35,7 @@ const Dashboard = () => {
             <Link to="/menu">Back Home</Link>
           </button>
         </div>
+        {/* {allVideos} */}
       </section>
     );
   }

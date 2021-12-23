@@ -141,7 +141,6 @@ const AppProvider = ({ children }) => {
   //Form
   const changeForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    // console.log(e.target.name, e.target.value, user);
   };
   const resetForm = () => {
     setUser({
@@ -153,22 +152,30 @@ const AppProvider = ({ children }) => {
   };
   const submitLoginForm = (e) => {
     e.preventDefault();
+    setUser({ ...user, username: user.username.toLowerCase() });
+    console.log(user);
+    console.log(user.username);
+    // console.log(user.username.toLowerCase());
+    // console.log(user.username.toUpperCase());
+
     if (user.username && user.password) {
-      console.log(user.username, user.password);
+      // user.username.toLowerCase();
+      console.log(user.username); //
+      // setUser({ ...user, username: user.username.toLowerCase() });
 
       //fetch ('/login') with user from form
       AuthService.login(user).then((data) => {
-        // console.log(data);
+        console.log(data);
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
         //from BE username + role
-        // console.log(user);
+        console.log(user);
         //if isAuthenticated===true
         if (isAuthenticated) {
           //update global state of user => (updated user)
           setUser(user);
           setUsername(user.username);
-          // console.log(`context submitLoginForm username: ${user.username}`);
+          console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
           console.log(isAuthenticated);
@@ -188,7 +195,7 @@ const AppProvider = ({ children }) => {
             // clean form
             resetForm();
           }, 4000);
-          console.log(user);
+          // console.log(user);
         }
       });
     } else {
@@ -210,6 +217,7 @@ const AppProvider = ({ children }) => {
   };
   const submitRegisterForm = (e) => {
     e.preventDefault();
+    // console.log(user.username);
     if (user.username && user.password) {
       // console.log(user);
 
@@ -231,6 +239,9 @@ const AppProvider = ({ children }) => {
           timerID = setTimeout(() => {
             //navigate user to Login page
             history.push("/login");
+            // clean form
+            resetForm();
+            setMessage({ msgBody: "", msgError: false });
           }, 2000);
         } else {
           //if error =>display error message from server

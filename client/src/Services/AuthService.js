@@ -34,7 +34,7 @@ export default {
   // 1b LOGIN
   //'user'===username, password, role
   login: (user) => {
-    // console.log(user);
+    // console.log(` authService user: `, { user });
     //configuration for fetch:
     return fetch(
       //endpoint
