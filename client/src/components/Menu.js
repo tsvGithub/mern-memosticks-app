@@ -8,58 +8,89 @@ import { useGlobalContext } from "../context";
 // import logout from "../assets/images/logout_white_24dp.svg";
 
 const Menu = (props) => {
-  const { mood, moon, sun, logout, switchMood, logoutHandler, times, timeOfDay, wish, user, chooseTimeInterval } =
-    useGlobalContext();
-  // console.log(mood);
-  // const { username } = user;
-  // console.log(`Menu Component 'username' ${username}`);
-  console.log(`Menu Component 'user.role' ${user.role}`);
-  console.log(timeOfDay);
-  console.log(times);
-  // const Morning = times.filter((t) => t > 3 && t <= 10);
-  // console.log(Morning);
-  // const Afternoon = times.filter((t) => t < 5);
-  // console.log(Afternoon);
-  // const Evening = times.filter((t) => typeof t);
-  // console.log(Evening);
+  const {
+    mood,
+    moon,
+    sun,
+    logout,
+    switchMood,
+    logoutHandler,
+    times,
+    timeOfDay,
+    wish,
+    user,
+    chooseTimeInterval,
+    video,
+    setVideo,
+    videos,
+  } = useGlobalContext();
+  // console.log(`Menu Component 'user.role' ${user.role}`);
+  // console.log(timeOfDay);
+  // console.log(times);
 
-  // let Morning = [5, 10];
-  // let Afternoon = [2, 3];
-  // let Evening = [5, 10, "pranayama", "meditation"];
+  console.log(`Menu videos:`, videos); //
 
   let filters = {
     Morning: [5, 10],
     Afternoon: [2, 3],
-    Evening: [5, 10, "pranayama", "meditation"],
+    Evening: [5, 10, 20, "pranayama", "meditation"],
   };
   let filtersKeys = Object.keys(filters);
-  console.log(filtersKeys); //3) ['Morning', 'Afternoon', 'Evening']
+  // console.log(filtersKeys); //3) ['Morning', 'Afternoon', 'Evening']
   let filtersKey = filtersKeys.filter((name) => name === timeOfDay);
-  console.log(filtersKey); //['Morning']
-  console.log(filters[filtersKey]); //[5,10]
+  // console.log(filtersKey); //['Morning']
+  // console.log(filters[filtersKey]); //[5,10]
 
-  let vremjaSutok = timeOfDay;
-  console.log(vremjaSutok); //Morning
-  // let upr = timeOfDay;
-  // const exercises = vremjaSutok.map((time) => {
+  console.log(timeOfDay); //Morning
   const exercises = filters[filtersKey].map((time) => {
-    console.log(typeof time === "string" ? time : `${time} minutes`);
+    console.log(time); //2 //3
+    console.log(`Menu timeOfDay:`, timeOfDay); //Afternoon
+    // console.log(`Menu videos:`, videos); //
+    videos ? console.log(videos) : console.log(`Non of videos`);
+    let video = videos.filter(
+      (video) =>
+        //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
+        //Works:
+        // video.timesOfDay === timeOfDay.trim() && video.length === time
+        //!!!!????
+        video.timesOfDay === timeOfDay.trim() && (video.length === time || video.type === ("pranayama" || "meditation"))
+    );
+    setVideo(...video);
+    console.log(`...video`, ...video);
+    console.log(`{video}`, { video }); //Array
+    console.log(`video`, video);
+    console.log(`video.title`, video[0].title);
 
-    // var arr = [7, "c1", "d2", 18, "dr", 21, 2];
-    // var numbers = arr.filter(numbersOnly);
-    // function numbersOnly(value) {
-    //   //console.log (value);  // it will show all the values.
-    //   if (typeof value === "number") {
-    //     return value;
-    //   }
-    // }
+    // console.log(video.title);
+    // console.log(typeof time === "string" ? time : `${video.title} ${time} minutes`);
     return (
       <button onClick={() => chooseTimeInterval(time)} key={time}>
-        <Link to="/dashboard">{typeof time === "string" ? time : `${time} minutes`}</Link>
+        {/* <Link to="/dashboard">{typeof time === "string" ? time : ` ${time} minutes`}</Link> */}
+        <Link to="/dashboard">
+          {typeof time === "string" ? (
+            time
+          ) : (
+            <span>
+              <p>{video[0].title}</p> <p className="small">{time} minutes</p>
+            </span>
+          )}
+        </Link>
+        {/* <Link to="/dashboard">{typeof time === "string" ? time : `${video[0].title} ${time} minutes`}</Link> */}
       </button>
     );
   });
-  console.log(exercises);
+  // const exercises = filters[filtersKey].map((time) => {
+  //   console.log(time); //2 //3
+  //   // console.log(video.title);
+  //   // console.log(typeof time === "string" ? time : `${video.title} ${time} minutes`);
+  //   return (
+  //     <button onClick={() => chooseTimeInterval(time)} key={time}>
+  //       <Link to="/dashboard">{typeof time === "string" ? time : ` ${time} minutes`}</Link>
+  //       {/* <Link to="/dashboard">{typeof time === "string" ? time : `${video.title} ${time} minutes`}</Link> */}
+  //     </button>
+  //   );
+  // });
+  // console.log(exercises);
   // {
   //   timeOfDay === "Afternoon" &&
   //     times.map((time) => {
@@ -103,6 +134,7 @@ const Menu = (props) => {
             );
           })} */}
           {exercises}
+
           {/* {timeOfDay === "Afternoon" &&
             times.map((time) => {
               console.log(time);

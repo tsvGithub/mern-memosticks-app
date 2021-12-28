@@ -33,7 +33,7 @@ const AppProvider = ({ children }) => {
 
   //State:
   //exercises length:
-  const [times, setTimes] = useState([2, 3, 5, 10, "pranayama", "meditation"]);
+  const [times, setTimes] = useState([2, 3, 5, 10, 20, "pranayama", "meditation"]);
   const [time, setTime] = useState(null);
   //
   const [videos, setVideos] = useState([]);
@@ -182,6 +182,8 @@ const AppProvider = ({ children }) => {
           getTimeOfDay(user.username);
 
           console.log(user.role);
+          //get all videos:
+          getVideos();
 
           user.role === "admin" && history.push("/");
           user.role === "user" && history.push("/menu");
@@ -212,6 +214,7 @@ const AppProvider = ({ children }) => {
       clearTimeout(timerID);
     };
   }, []);
+
   const changeRegisterForm = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value, role: "user" });
   };
@@ -281,6 +284,7 @@ const AppProvider = ({ children }) => {
     const res = await axios.get("/all");
     const videos = await res.data.videos;
     setVideos(videos);
+    console.log(`Initial videos`, videos);
   };
   useEffect(() => {
     getVideos();
@@ -292,7 +296,7 @@ const AppProvider = ({ children }) => {
   };
   //-----------------------------------------------------------------
   //Get One Video:
-  const getOneVideo = async () => {
+  const getOneVideo = () => {
     console.log(`videos`, videos);
     console.log(`time`, time);
     console.log(`timeOfDay`, timeOfDay);
@@ -304,10 +308,11 @@ const AppProvider = ({ children }) => {
         //!!!!????
         video.timesOfDay === timeOfDay.trim() && (video.length === time || video.type === ("pranayama" || "meditation"))
     );
-    // console.log(`...video`, ...video);
+    console.log(`...video`, ...video);
     setVideo(...video);
-    // console.log(`video`, video); //
+    console.log(`video`, video); //
   };
+  //onClick "Menu" Component
   useEffect(() => {
     getOneVideo();
   }, [time]);
@@ -325,6 +330,7 @@ const AppProvider = ({ children }) => {
             setTime,
             videos,
             video,
+            setVideo,
             timeOfDay,
             wish,
             //Authentification ()-----
