@@ -75,7 +75,7 @@ const AppProvider = ({ children }) => {
     //every time 'mood' changes value => set
     //localStorage to this value.
     localStorage.setItem("mood", mood);
-    console.log(mood);
+    // console.log(mood);
   }, [mood]);
 
   //=================================
@@ -153,35 +153,35 @@ const AppProvider = ({ children }) => {
   const submitLoginForm = (e) => {
     e.preventDefault();
     setUser({ ...user, username: user.username.toLowerCase() });
-    console.log(user);
-    console.log(user.username);
+    // console.log(user);
+    // console.log(user.username);
     // console.log(user.username.toLowerCase());
     // console.log(user.username.toUpperCase());
 
     if (user.username && user.password) {
       // user.username.toLowerCase();
-      console.log(user.username); //
+      // console.log(user.username); //
       // setUser({ ...user, username: user.username.toLowerCase() });
 
       //fetch ('/login') with user from form
       AuthService.login(user).then((data) => {
-        console.log(data);
+        // console.log(data);
         //pull {stuff} from response parsed data
         const { isAuthenticated, user, message } = data;
         //from BE username + role
-        console.log(user);
+        // console.log(user);
         //if isAuthenticated===true
         if (isAuthenticated) {
           //update global state of user => (updated user)
           setUser(user);
           setUsername(user.username);
-          console.log(`context submitLoginForm username: ${user.username}`);
+          // console.log(`context submitLoginForm username: ${user.username}`);
           //update the isAuthenticated state => isAuthenticated(true)
           setIsAuthenticated(isAuthenticated);
-          console.log(isAuthenticated);
+          // console.log(isAuthenticated);
           getTimeOfDay(user.username);
 
-          console.log(user.role);
+          // console.log(user.role);
           //get all videos:
           getVideos();
 
@@ -284,7 +284,7 @@ const AppProvider = ({ children }) => {
     const res = await axios.get("/all");
     const videos = await res.data.videos;
     setVideos(videos);
-    console.log(`Initial videos`, videos);
+    console.log(`Initial videos`, videos); //All videos [Array(9)]
   };
   useEffect(() => {
     getVideos();
@@ -297,20 +297,20 @@ const AppProvider = ({ children }) => {
   //-----------------------------------------------------------------
   //Get One Video:
   const getOneVideo = () => {
-    console.log(`videos`, videos);
-    console.log(`time`, time);
-    console.log(`timeOfDay`, timeOfDay);
+    console.log(`Context 'getOneVideo' videos`, videos); //Array(0)
+    console.log(`Context 'getOneVideo' time`, time); //null
+    console.log(`Context 'getOneVideo' timeOfDay`, timeOfDay); //ni4ego
     let video = videos.filter(
       (video) =>
-        //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
         //Works:
         // video.timesOfDay === timeOfDay.trim() && video.length === time
         //!!!!????
-        video.timesOfDay === timeOfDay.trim() && (video.length === time || video.type === ("pranayama" || "meditation"))
+        video.timesOfDay === timeOfDay.trim() && video.length === time
+      // || video.type === ("pranayama" || "meditation")
     );
-    console.log(`...video`, ...video);
+    console.log(`...video`, ...video); //ni4ego
     setVideo(...video);
-    console.log(`video`, video); //
+    console.log(`video`, video); //[Array(0)]
   };
   //onClick "Menu" Component
   useEffect(() => {

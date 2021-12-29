@@ -11,7 +11,7 @@ import { useGlobalContext } from "../context";
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
   //pull out from global state
   const { isAuthenticated, user } = useGlobalContext();
-  console.log(isAuthenticated);
+  console.log(`isAuthenticated:`, isAuthenticated);
   return (
     // pass as props {spred ...rest} in Route component
     <Route
@@ -51,7 +51,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
         //if user is authenticated & has correct role:
         //return Component that was being passed in
         console.log("return Component with ...props");
-        console.log(roles.includes(user.role));
+        // console.log(roles.includes(user.role));
         // console.log(Component);
         // console.log(props);
         return <Component {...props} />;

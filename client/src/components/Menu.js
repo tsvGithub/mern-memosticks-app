@@ -28,53 +28,72 @@ const Menu = (props) => {
   // console.log(timeOfDay);
   // console.log(times);
 
-  console.log(`Menu videos:`, videos); //
+  console.log(`Menu videos:`, videos); //[9]
+  console.log(`Menu videos.length:`, videos.length); //9
 
   let filters = {
     Morning: [5, 10],
-    Afternoon: [2, 3],
-    Evening: [5, 10, 20, "pranayama", "meditation"],
+    Afternoon: [2, 3, 20],
+    Evening: [5, 10, 20],
+    // Evening: [5, 10, 20, "pranayama", "meditation"],
   };
   let filtersKeys = Object.keys(filters);
-  // console.log(filtersKeys); //3) ['Morning', 'Afternoon', 'Evening']
+  console.log(`Menu All filtersKeys:`, filtersKeys);
+  //3) ['Morning', 'Afternoon', 'Evening']
   let filtersKey = filtersKeys.filter((name) => name === timeOfDay);
-  // console.log(filtersKey); //['Morning']
-  // console.log(filters[filtersKey]); //[5,10]
+  console.log(`Menu One filtersKey:`, filtersKey);
+  //['Afternoon']
+  console.log(`Menu filters[filtersKey]:`, filters[filtersKey]);
+  //[2,3,20]
 
-  console.log(timeOfDay); //Morning
+  console.log(timeOfDay); //Afternoon
   const exercises = filters[filtersKey].map((time) => {
-    console.log(time); //2 //3
+    console.log(`Menu time:`, time); //2
     console.log(`Menu timeOfDay:`, timeOfDay); //Afternoon
-    // console.log(`Menu videos:`, videos); //
-    videos ? console.log(videos) : console.log(`Non of videos`);
+    // console.log(`Menu videos.length:`, videos.length); //9
+    // videos ? console.log(`Menu videos:`, videos) : console.log(`Non of videos`);
+    //[9]
     let video = videos.filter(
       (video) =>
-        //   console.log(video.timesOfDay == timeOfDay.trim(), video.timesOfDay, timeOfDay)
-        //Works:
-        // video.timesOfDay === timeOfDay.trim() && video.length === time
-        //!!!!????
-        video.timesOfDay === timeOfDay.trim() && (video.length === time || video.type === ("pranayama" || "meditation"))
+        console.log(
+          `Menu video.timesOfDay == timeOfDay.trim():`,
+          video.timesOfDay == timeOfDay.trim(),
+          // video.timesOfDay, timeOfDay,
+          `Menu video.length === time:`,
+          video.length === time,
+          `video.title:`,
+          video.title
+        )
+      //Works:
+      // video.timesOfDay === timeOfDay.trim() && video.length === time
+      //!!!!????
+      // (video.timesOfDay === timeOfDay.trim() && video.length === time) || video.type === ("pranayama" || "meditation")
     );
-    setVideo(...video);
-    console.log(`...video`, ...video);
-    console.log(`{video}`, { video }); //Array
-    console.log(`video`, video);
-    console.log(`video.title`, video[0].title);
+    // setVideo(...video);
+    // console.log(`Menu ...video`, ...video);
+    // //{Spine Energy}
+    // console.log(`Menu {video}`, { video });
+    // //{video: [Array (1) ]}
+    console.log(`Menu video`, video);
+    // //[0:{Tibetans}, 1:{Pranayama}]
+    // console.log(Menu`video.title`, video.title); //uzhe ni4ego i posle etotgo ne idjet vniz!
+    // console.log(Menu`video.title`, video[0].title);
 
     // console.log(video.title);
     // console.log(typeof time === "string" ? time : `${video.title} ${time} minutes`);
     return (
       <button onClick={() => chooseTimeInterval(time)} key={time}>
-        {/* <Link to="/dashboard">{typeof time === "string" ? time : ` ${time} minutes`}</Link> */}
-        <Link to="/dashboard">
+        <Link to="/dashboard">{` ${time} minutes`}</Link>
+        {/* <Link to="/dashboard">
           {typeof time === "string" ? (
             time
           ) : (
             <span>
-              <p>{video[0].title}</p> <p className="small">{time} minutes</p>
+              {/* <p>{video[0].title}</p>  */}
+        {/* <p className="small">{time} minutes</p>
             </span>
           )}
-        </Link>
+        </Link> */}
         {/* <Link to="/dashboard">{typeof time === "string" ? time : `${video[0].title} ${time} minutes`}</Link> */}
       </button>
     );
