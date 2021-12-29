@@ -38,6 +38,7 @@ const AppProvider = ({ children }) => {
   //
   const [videos, setVideos] = useState([]);
   const [video, setVideo] = useState();
+  const [title, setTitle] = useState("");
   //time of the day:
   const [timeOfDay, setTimeOfDay] = useState("");
   const [wish, setWish] = useState("");
@@ -293,29 +294,43 @@ const AppProvider = ({ children }) => {
   //How much time do you have?
   const chooseTimeInterval = (time) => {
     setTime(time);
+    getOneVideo(time);
   };
   //-----------------------------------------------------------------
   //Get One Video:
-  const getOneVideo = () => {
-    console.log(`Context 'getOneVideo' videos`, videos); //Array(0)
-    console.log(`Context 'getOneVideo' time`, time); //null
-    console.log(`Context 'getOneVideo' timeOfDay`, timeOfDay); //ni4ego
-    let video = videos.filter(
+  const getOneVideo = (time) => {
+    console.log(`Context 'getOneVideo' All videos`, videos); //Array(0)
+    console.log(`Context 'getOneVideo' time`, time); //20
+    console.log(`Context 'getOneVideo' timeOfDay`, timeOfDay);
+    let filteredVideo = videos.filter(
+      // let video = videos.filter(
       (video) =>
         //Works:
         // video.timesOfDay === timeOfDay.trim() && video.length === time
         //!!!!????
         video.timesOfDay === timeOfDay.trim() && video.length === time
+      // setTitle(video.title)
       // || video.type === ("pranayama" || "meditation")
     );
-    console.log(`...video`, ...video); //ni4ego
-    setVideo(...video);
-    console.log(`video`, video); //[Array(0)]
+    console.log(`Context 'getOneVideo' filteredVideos`, { filteredVideo });
+    // console.log(`Context 'getOneVideo'...video`, ...video); //estj konkretnoe video
+    setVideo(...filteredVideo);
+    setTitle(filteredVideo[0].title);
+
+    // // let { title } = video;
+    console.log(`Context 'getOneVideo' title:`, filteredVideo[0].title);
+    // // setTitle(...video, { title: video.title });
+    // // console.log(`Context 'getOneVideo' video title`, title.title);
+    // // console.log(`Context 'getOneVideo' video title`, { title });
+
+    // console.log(`Context 'getOneVideo' video[0]title`, video[0].title); //[Array(0)]
+    // console.log(`Context 'getOneVideo' video.title`, video.title); //[Array(0)]
+    // console.log(`Context 'getOneVideo' video[0].title`, video[0].title); //[Array(0)]
   };
   //onClick "Menu" Component
-  useEffect(() => {
-    getOneVideo();
-  }, [time]);
+  // useEffect(() => {
+  //   getOneVideo();
+  // }, [time]);
   //========================================
   return (
     <div>
@@ -330,6 +345,7 @@ const AppProvider = ({ children }) => {
             setTime,
             videos,
             video,
+            title,
             setVideo,
             timeOfDay,
             wish,
