@@ -56,7 +56,7 @@ const Menu = () => {
           <Link to="/dashboard">
             {
               <span>
-                <p>{time.title}</p>
+                <p className="italic">{time.title}</p>
                 <p className="small">{isATime}</p>
               </span>
             }

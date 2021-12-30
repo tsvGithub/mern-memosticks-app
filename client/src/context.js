@@ -318,7 +318,7 @@ const AppProvider = ({ children }) => {
     setTitle(filteredVideo[0].title);
 
     // // let { title } = video;
-    console.log(`Context 'getOneVideo' title:`, filteredVideo[0].title);
+    console.log(`Context 'getOneVideo' title:`, title);
     // // setTitle(...video, { title: video.title });
     // // console.log(`Context 'getOneVideo' video title`, title.title);
     // // console.log(`Context 'getOneVideo' video title`, { title });

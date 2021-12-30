@@ -256,6 +256,9 @@ nav {
 .small {
   font-size: 1rem;
 }
+.italic {
+  font-style: italic;
+}
 .embed-container {
   /* position: relative; */
   /* padding-bottom: 10%; */

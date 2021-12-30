@@ -51,7 +51,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
         //if user is authenticated & has correct role:
         //return Component that was being passed in
         console.log("return Component with ...props");
-        // console.log(roles.includes(user.role));
+        console.log(roles.includes(user.role));
         // console.log(Component);
         // console.log(props);
         return <Component {...props} />;
