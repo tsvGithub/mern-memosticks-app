@@ -5,13 +5,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 // const dotenv = require("dotenv");
-
+const path = require("path");
+//---------PASSPORT----------
 const passport = require("passport");
 app.use(passport.initialize());
 
+//==================================
 //I => II.models/User.model.js
 
 app.use(cors());
+//parse 'json' when server sends&recieves 'json'
 app.use(express.json());
 
 //NB! try this:
@@ -53,7 +56,21 @@ require("dotenv").config();
 // console.log(process.env.DATABASEURL);
 // console.log(process.env.Atlas_URI);
 
+//------------------------------------
+//(Deploying Step 1)
+// to test what enviroment that we're at
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
+
 //============= MongoDB Atlas ===================
+//(Deploying Step 2) =>
+//Step 3 is in the 'package.json' script 'heroku-postbuild' =>
+// Step 4 ===delete .git folder from 'client' directory
+//'Atlas_URI' => env.var for Heroku
 mongoose
   .connect(process.env.Atlas_URI, {
     useNewUrlParser: true,
@@ -70,6 +87,7 @@ mongoose
 
 //========================================================
 //Server
+//first for deploying; second for developing
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
