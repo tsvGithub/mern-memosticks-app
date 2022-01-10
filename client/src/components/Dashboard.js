@@ -1,20 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+
 import { useGlobalContext } from "../context";
 const Dashboard = () => {
-  const { time, video, videos, mood } = useGlobalContext();
+  const { history, time, video, videos, mood } = useGlobalContext();
+  // let history = useHistory();
   // console.log(`video`, video);
-
-  //-------------
-  // const allVideos = videos.map((video) => {
-  //   console.log(video.title, video._id, video.url, video.length, video.type);
-  //   return (
-  //     <section className="container" key={video._id}>
-  //       <h3>{video.title}</h3>
-  //       <iframe src={video.url} title="YouTube video player"></iframe>
-  //     </section>
-  //   );
-  // });
 
   if (!video) {
     return (
@@ -31,9 +23,10 @@ const Dashboard = () => {
         <div className="embed-container">
           {/* <div className="outer embed-container"> */}
           <iframe src={video.url} allowFullScreen title="YouTube video player"></iframe>
-          <button>
+          {/* <button>
             <Link to="/menu">Back Home</Link>
-          </button>
+          </button> */}
+          <button onClick={() => history.goBack()}>Go Back</button>
         </div>
         {/* {allVideos} */}
       </section>
@@ -42,8 +35,6 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
-      <h3>{time}</h3>
-      {/* {allVideos} */}
     </div>
   );
 };

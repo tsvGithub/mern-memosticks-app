@@ -296,6 +296,38 @@ const AppProvider = ({ children }) => {
     setTime(time);
     getOneVideo(time);
   };
+  const chooseVideo = (video) => {
+    setVideo(video);
+    // getMentalVideo(video);
+  };
+  // const getMentalVideo = (video) => {
+  //   console.log(`Context 'getOneVideo' All videos`, videos); //Array(0)
+  //   let filteredVideo = videos.filter(
+  //     // let video = videos.filter(
+  //     (video) =>
+  //       //Works:
+  //       // video.timesOfDay === timeOfDay.trim() && video.length === time
+  //       //!!!!????
+  //       video.timesOfDay === timeOfDay.trim() && video.length === time
+  //     // setTitle(video.title)
+  //     // || video.type === ("pranayama" || "meditation")
+  //   );
+  //   console.log(`Context 'getOneVideo' filteredVideos`, { filteredVideo });
+  //   // console.log(`Context 'getOneVideo'...video`, ...video); //estj konkretnoe video
+  //   setVideo(...filteredVideo);
+  //   setTitle(filteredVideo[0].title);
+
+  //   // // let { title } = video;
+  //   console.log(`Context 'getOneVideo' title:`, title);
+  //   // // setTitle(...video, { title: video.title });
+  //   // // console.log(`Context 'getOneVideo' video title`, title.title);
+  //   // // console.log(`Context 'getOneVideo' video title`, { title });
+
+  //   // console.log(`Context 'getOneVideo' video[0]title`, video[0].title); //[Array(0)]
+  //   // console.log(`Context 'getOneVideo' video.title`, video.title); //[Array(0)]
+  //   // console.log(`Context 'getOneVideo' video[0].title`, video[0].title); //[Array(0)]
+  // };
+
   //-----------------------------------------------------------------
   //Get One Video:
   const getOneVideo = (time) => {
@@ -340,6 +372,7 @@ const AppProvider = ({ children }) => {
         <AppContext.Provider
           /*provide 'global state' to children===components*/
           value={{
+            history,
             times,
             time,
             setTime,
@@ -373,6 +406,7 @@ const AppProvider = ({ children }) => {
             chooseTimeInterval,
             getVideos,
             getOneVideo,
+            chooseVideo,
           }}
         >
           {children}

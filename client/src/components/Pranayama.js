@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 
 import { useGlobalContext } from "../context";
 
-const Menu = () => {
+const Pranayama = () => {
   const {
+    history,
     mood,
     moon,
     sun,
@@ -20,44 +21,33 @@ const Menu = () => {
     title,
     setVideo,
     videos,
+    // chooseVideo,
   } = useGlobalContext();
   // console.log(`Menu Component 'user.role' ${user.role}`);
-  // console.log(timeOfDay);
-  // console.log(times);
+  console.log(`Menu videos:`, videos); //[12]
 
-  console.log(`Menu videos:`, videos); //[9]
+  const chooseVideo = (video) => {
+    console.log(`chooseVdeo Pranayama "video"`, video);
+    setVideo(video);
+    // getMentalVideo(video);
+  };
 
-  // let filters = {
-  //   Morning: [5, 10],
-  //   Afternoon: [2, 3, 20],
-  //   Evening: [5, 10, 20],
-  //   // Evening: [5, 10, 20, "pranayama", "meditation"],
-  // };
-  // let filtersKeys = Object.keys(filters);
-  // console.log(`Menu All filtersKeys:`, filtersKeys); //3) ['Morning', 'Afternoon', 'Evening']
-  // let filtersKey = filtersKeys.filter((name) => name === timeOfDay);
-  // console.log(`Menu One filtersKey:`, filtersKey); //['Afternoon']
-  // console.log(`Menu filters[filtersKey]:`, filters[filtersKey]); //[2,3,20]
-  // console.log(timeOfDay); //Afternoon
-
-  // const actuals = videos.filter((video) => video.timesOfDay === timeOfDay.trim());
-  // console.log(`Menu actuals`, actuals); // 2 [{GS}, {ShDrill}]
-  // const actualExercises = actuals.map((exercise) => exercise.length);
-  // console.log(`Menu actualExercises`, actualExercises); //[5,10]
-
-  const timeToShow = videos
-    .filter((video) => video.timesOfDay === timeOfDay.trim())
-    .map((time) => {
-      console.log(`Menu timeToShow time.length`, time.length);
-      console.log(`Menu timeToShow time.title`, time.title);
-      let isATime = time.length > 0 ? `${time.length} minutes` : "";
+  const pranayamaToShow = videos
+    .filter((video) => video.type === "pranayama")
+    // .filter((video) => video.timesOfDay === timeOfDay.trim())
+    .map((video) => {
+      // .map((time) => {
+      //   console.log(`Menu timeToShow time.length`, time.length);
+      //   console.log(`Menu timeToShow time.title`, time.title);
+      //   let isATime = time.length > 0 ? `${time.length} minutes` : "";
       return (
-        <button onClick={() => chooseTimeInterval(time.length)} key={time.length}>
+        <button onClick={() => chooseVideo(video)} key={video.title}>
+          {/* <button onClick={() => chooseTimeInterval(time.length)} key={time.length}> */}
           <Link to="/dashboard">
             {
               <span>
-                <p className="italic">{time.title}</p>
-                <p className="small">{isATime}</p>
+                <p className="italic">{video.title}</p>
+                {/* <p className="small">{isATime}</p> */}
               </span>
             }
           </Link>
@@ -179,7 +169,8 @@ const Menu = () => {
         <h1>{wish}</h1>
         {/* {timeOfDay} */}
         <div className={`container container-${mood}`}>
-          <h3>What should we train?</h3>
+          <h3>Let's breath!</h3>
+          {/* <h3>What should we train?</h3> */}
           {/* <h3>How much time do you have?</h3> */}
           {/* {times.map((time) => {
             return (
@@ -190,14 +181,15 @@ const Menu = () => {
           })} */}
           {/* {exercises} */}
 
+          {pranayamaToShow}
           {/* {timeToShow} */}
 
-          <button>
-            <Link to="/mental">Mental</Link>
+          {/* <button>
+            <Link to="/pranayama"> Pranayama</Link>
           </button>
           <button>
-            <Link to="/body">Body</Link>
-          </button>
+            <Link to="/meditation"> Meditation</Link>
+          </button> */}
 
           {/* {timeOfDay === "Afternoon" &&
             times.map((time) => {
@@ -216,13 +208,15 @@ const Menu = () => {
             })} */}
         </div>
       </section>
+
+      <button onClick={() => history.goBack()}>Go Back</button>
       {user.role === "admin" && (
         <button className="admin">
-          <Link to="/">Back Home</Link>
+          <Link to="/menu">Back Home</Link>
         </button>
       )}
     </main>
   );
 };
 
-export default Menu;
+export default Pranayama;

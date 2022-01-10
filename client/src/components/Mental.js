@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useGlobalContext } from "../context";
 
-const Menu = () => {
+const Mental = () => {
   const {
     mood,
     moon,
@@ -26,24 +26,6 @@ const Menu = () => {
   // console.log(times);
 
   console.log(`Menu videos:`, videos); //[9]
-
-  // let filters = {
-  //   Morning: [5, 10],
-  //   Afternoon: [2, 3, 20],
-  //   Evening: [5, 10, 20],
-  //   // Evening: [5, 10, 20, "pranayama", "meditation"],
-  // };
-  // let filtersKeys = Object.keys(filters);
-  // console.log(`Menu All filtersKeys:`, filtersKeys); //3) ['Morning', 'Afternoon', 'Evening']
-  // let filtersKey = filtersKeys.filter((name) => name === timeOfDay);
-  // console.log(`Menu One filtersKey:`, filtersKey); //['Afternoon']
-  // console.log(`Menu filters[filtersKey]:`, filters[filtersKey]); //[2,3,20]
-  // console.log(timeOfDay); //Afternoon
-
-  // const actuals = videos.filter((video) => video.timesOfDay === timeOfDay.trim());
-  // console.log(`Menu actuals`, actuals); // 2 [{GS}, {ShDrill}]
-  // const actualExercises = actuals.map((exercise) => exercise.length);
-  // console.log(`Menu actualExercises`, actualExercises); //[5,10]
 
   const timeToShow = videos
     .filter((video) => video.timesOfDay === timeOfDay.trim())
@@ -179,7 +161,7 @@ const Menu = () => {
         <h1>{wish}</h1>
         {/* {timeOfDay} */}
         <div className={`container container-${mood}`}>
-          <h3>What should we train?</h3>
+          <h3>What shall we do?</h3>
           {/* <h3>How much time do you have?</h3> */}
           {/* {times.map((time) => {
             return (
@@ -193,10 +175,10 @@ const Menu = () => {
           {/* {timeToShow} */}
 
           <button>
-            <Link to="/mental">Mental</Link>
+            <Link to="/pranayama"> Pranayama</Link>
           </button>
           <button>
-            <Link to="/body">Body</Link>
+            <Link to="/meditation"> Meditation</Link>
           </button>
 
           {/* {timeOfDay === "Afternoon" &&
@@ -216,13 +198,13 @@ const Menu = () => {
             })} */}
         </div>
       </section>
-      {user.role === "admin" && (
-        <button className="admin">
-          <Link to="/">Back Home</Link>
-        </button>
-      )}
+      {/* {user.role === "admin" && ( */}
+      <button className="admin">
+        <Link to="/menu">Back</Link>
+      </button>
+      {/* )} */}
     </main>
   );
 };
 
-export default Menu;
+export default Mental;
