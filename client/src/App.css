@@ -104,6 +104,9 @@ li {
 }
 a {
   text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  color: var(--DT-Very-Dark-Desaturated-Blue);
 }
 a:active {
   color: inherit;
@@ -202,10 +205,10 @@ a:active {
   justify-content: center;
   gap: 20px;
 }
-.home > button > a {
+/* .home > button > a {
   display: block;
-  /* background: orange; */
-}
+  /* background: orange; 
+} */
 .container > button,
 .embed-container > button,
 .submit,
@@ -221,10 +224,18 @@ a:active {
   -o-border-radius: 0.25rem;
 }
 .admin {
-  padding: 0 100px;
+  /* padding: 0 100px; */
+  width: 40%;
   background-color: var(--LT-body-background);
   box-shadow: var(--dark-shadow);
   border-radius: 0.25rem;
+  color: var(--DT-Very-Dark-Desaturated-Blue);
+  cursor: pointer;
+}
+.admin > a {
+  width: 100%;
+  display: inline-block;
+  color: var(--DT-Very-Dark-Desaturated-Blue);
 }
 .container > form > input {
   width: 100%;
