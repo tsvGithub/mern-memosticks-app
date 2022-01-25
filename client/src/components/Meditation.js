@@ -12,20 +12,20 @@ const Meditation = () => {
     logout,
     switchMood,
     logoutHandler,
-    times,
-    timeOfDay,
+    // times,
+    // timeOfDay,
     wish,
     user,
-    chooseTimeInterval,
-    video,
-    title,
+    // chooseTimeInterval,
+    // video,
+    // title,
     setVideo,
     videos,
     // chooseVideo,
   } = useGlobalContext();
 
   const chooseVideo = (video) => {
-    console.log(`chooseVdeo Meditation "video"`, video);
+    // console.log(`chooseVdeo Meditation "video"`, video);
     setVideo(video);
     // getMentalVideo(video);
   };

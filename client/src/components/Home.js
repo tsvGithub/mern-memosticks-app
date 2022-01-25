@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import Menu from "./Menu";
+// import Menu from "./Menu";
 //logout
-import AuthService from "../Services/AuthService";
+// import AuthService from "../Services/AuthService";
 //global State
 import { useGlobalContext } from "../context";
 
@@ -12,8 +12,7 @@ import { useGlobalContext } from "../context";
 
 //VIII (VII -> App.js;  IX -> Login.js)
 const Home = (props) => {
-  const { mood, switchMood, moon, sun, logout, logoutHandler, isAuthenticated, setIsAuthenticated, user, setUser } =
-    useGlobalContext();
+  const { mood, switchMood, moon, sun, logout, logoutHandler, isAuthenticated, user } = useGlobalContext();
   const unAuthenticated = () => {
     return (
       <>
@@ -28,7 +27,7 @@ const Home = (props) => {
   };
 
   const authenticated = () => {
-    console.log(user);
+    // console.log(user);
     return (
       <>
         {/* two types of authenticated users:

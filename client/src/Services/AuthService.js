@@ -3,6 +3,7 @@
 
 //V (IV 'routes' BE; VI -> cobtext.js )
 //1
+// eslint-disable-next-line
 export default {
   //----------------------------------
   //Object contains a buch of convenience functions:

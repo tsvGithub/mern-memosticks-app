@@ -11,7 +11,7 @@ import { useGlobalContext } from "../context";
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
   //pull out from global state
   const { isAuthenticated, user } = useGlobalContext();
-  console.log(`isAuthenticated:`, isAuthenticated);
+  // console.log(`isAuthenticated:`, isAuthenticated);
   return (
     // pass as props {spred ...rest} in Route component
     <Route
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
         //if not authenticated -> Redirect to Login
         //from:props.location => where this user is coming from
         if (!isAuthenticated) {
-          console.log("Not authenticated");
+          // console.log("Not authenticated");
           return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />;
         }
         //-------------------
@@ -41,17 +41,17 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => {
           // console.log(roles.includes("admin" || "user"));
           // if (user.role === "") {
           // if (user.role !== "admin" || user.role !== "user") {
-          console.log(user.role);
+          // console.log(user.role);
           // roles.map((role) => console.log(role));
-          console.log("No permissions granted");
+          // console.log("No permissions granted");
 
           return <Redirect to={{ pathname: "/", state: { from: props.location } }} />;
         }
         //-----------------------------
         //if user is authenticated & has correct role:
         //return Component that was being passed in
-        console.log("return Component with ...props");
-        console.log(roles.includes(user.role));
+        // console.log("return Component with ...props");
+        // console.log(roles.includes(user.role));
         // console.log(Component);
         // console.log(props);
         return <Component {...props} />;

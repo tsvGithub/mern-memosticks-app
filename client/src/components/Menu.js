@@ -11,21 +11,21 @@ const Menu = () => {
     logout,
     switchMood,
     logoutHandler,
-    times,
+    // times,
     timeOfDay,
     wish,
     user,
     chooseTimeInterval,
-    video,
-    title,
-    setVideo,
+    // video,
+    // title,
+    // setVideo,
     videos,
   } = useGlobalContext();
   // console.log(`Menu Component 'user.role' ${user.role}`);
   // console.log(timeOfDay);
   // console.log(times);
 
-  console.log(`Menu videos:`, videos); //[9]
+  // console.log(`Menu videos:`, videos); //[9]
 
   // let filters = {
   //   Morning: [5, 10],
@@ -44,12 +44,12 @@ const Menu = () => {
   // console.log(`Menu actuals`, actuals); // 2 [{GS}, {ShDrill}]
   // const actualExercises = actuals.map((exercise) => exercise.length);
   // console.log(`Menu actualExercises`, actualExercises); //[5,10]
-
+  // eslint-disable-next-line
   const timeToShow = videos
     .filter((video) => video.timesOfDay === timeOfDay.trim())
     .map((time) => {
-      console.log(`Menu timeToShow time.length`, time.length);
-      console.log(`Menu timeToShow time.title`, time.title);
+      // console.log(`Menu timeToShow time.length`, time.length);
+      // console.log(`Menu timeToShow time.title`, time.title);
       let isATime = time.length > 0 ? `${time.length} minutes` : "";
       return (
         <button onClick={() => chooseTimeInterval(time.length)} key={time.length}>

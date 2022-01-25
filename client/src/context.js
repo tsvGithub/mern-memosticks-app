@@ -33,6 +33,7 @@ const AppProvider = ({ children }) => {
 
   //State:
   //exercises length:
+  // eslint-disable-next-line
   const [times, setTimes] = useState([2, 3, 5, 10, 20, "pranayama", "meditation"]);
   const [time, setTime] = useState(null);
   //
@@ -49,6 +50,7 @@ const AppProvider = ({ children }) => {
   //'user'===user that is logged in
   // const [user, setUser] = useState(null);
   const [user, setUser] = useState("");
+  // eslint-disable-next-line
   const [username, setUsername] = useState("");
   //isAuthenticated===if this user is authenticated or not
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -66,7 +68,7 @@ const AppProvider = ({ children }) => {
   //THEME (3):
   const switchMood = () => {
     setMood(mood === "dark" ? "light" : "dark");
-    console.log(mood);
+    // console.log(mood);
   };
   //THEME (4):
   //run every time 'mood' changes
@@ -168,6 +170,7 @@ const AppProvider = ({ children }) => {
       AuthService.login(user).then((data) => {
         // console.log(data);
         //pull {stuff} from response parsed data
+        // eslint-disable-next-line
         const { isAuthenticated, user, message } = data;
         //from BE username + role
         // console.log(user);
@@ -273,7 +276,7 @@ const AppProvider = ({ children }) => {
     const wish = username ? `Good ${timeOfDay}, ${username.toUpperCase()}!` : `Good ${timeOfDay}, Guest`;
 
     setWish(wish);
-    console.log(timeOfDay);
+    // console.log(timeOfDay);
   };
 
   // useEffect(() => {
@@ -285,7 +288,7 @@ const AppProvider = ({ children }) => {
     const res = await axios.get("/all");
     const videos = await res.data.videos;
     setVideos(videos);
-    console.log(`Initial videos`, videos); //All videos [Array(9)]
+    // console.log(`Initial videos`, videos); //All videos [Array(9)]
   };
   useEffect(() => {
     getVideos();
@@ -331,9 +334,9 @@ const AppProvider = ({ children }) => {
   //-----------------------------------------------------------------
   //Get One Video:
   const getOneVideo = (time) => {
-    console.log(`Context 'getOneVideo' All videos`, videos); //Array(0)
-    console.log(`Context 'getOneVideo' time`, time); //20
-    console.log(`Context 'getOneVideo' timeOfDay`, timeOfDay);
+    // console.log(`Context 'getOneVideo' All videos`, videos); //Array(0)
+    // console.log(`Context 'getOneVideo' time`, time); //20
+    // console.log(`Context 'getOneVideo' timeOfDay`, timeOfDay);
     let filteredVideo = videos.filter(
       // let video = videos.filter(
       (video) =>
@@ -344,13 +347,13 @@ const AppProvider = ({ children }) => {
       // setTitle(video.title)
       // || video.type === ("pranayama" || "meditation")
     );
-    console.log(`Context 'getOneVideo' filteredVideos`, { filteredVideo });
+    // console.log(`Context 'getOneVideo' filteredVideos`, { filteredVideo });
     // console.log(`Context 'getOneVideo'...video`, ...video); //estj konkretnoe video
     setVideo(...filteredVideo);
     setTitle(filteredVideo[0].title);
 
     // // let { title } = video;
-    console.log(`Context 'getOneVideo' title:`, title);
+    // console.log(`Context 'getOneVideo' title:`, title);
     // // setTitle(...video, { title: video.title });
     // // console.log(`Context 'getOneVideo' video title`, title.title);
     // // console.log(`Context 'getOneVideo' video title`, { title });
@@ -401,7 +404,6 @@ const AppProvider = ({ children }) => {
             switchMood,
             moon,
             sun,
-            switchMood,
             //--------------------
             chooseTimeInterval,
             getVideos,

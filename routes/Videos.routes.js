@@ -51,7 +51,7 @@ app.post("/", async (req, res) => {
 app.get("/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
-    console.log({ video });
+    // console.log({ video });
     res.status(200).json(video);
   } catch {
     res.status(500).json({

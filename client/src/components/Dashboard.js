@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 
 import { useGlobalContext } from "../context";
 const Dashboard = () => {
-  const { history, time, video, videos, mood } = useGlobalContext();
+  const {
+    history,
+    // time,
+    video,
+    // videos,
+    mood,
+  } = useGlobalContext();
   // let history = useHistory();
   // console.log(`video`, video);
 
