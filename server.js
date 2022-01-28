@@ -1,6 +1,6 @@
 const express = require("express");
 // const favicon = require("express-favicon");
-const favicon = require("serve-favicon");
+// const favicon = require("serve-favicon");
 const app = express();
 
 const mongoose = require("mongoose");
@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 // const dotenv = require("dotenv");
 const path = require("path");
 
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+// app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 // app.use(favicon(__dirname + "/build/favicon.ico"));
 // // the __dirname is the current directory from where the script is running
