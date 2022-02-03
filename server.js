@@ -58,7 +58,7 @@ require("dotenv").config();
 // console.log(process.env.Atlas_URI);
 
 //------------------------------------
-//(Deploying Step 1)
+//(Deploying Step 1) //
 // to test what enviroment that we're at
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
